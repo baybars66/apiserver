@@ -58,7 +58,7 @@ app.listen(port, () => console.log(`Server localhost:${port} üzerinde ayakta`) 
 
 app.get('/kisiler',(req,res)=>{
   console.log('deneme');
-    con.query("SELECT * FROM users",  (err, result, fields) => {
+    con.query("SELECT name FROM users",  (err, result, fields) => {
 
         if (!err)
         { // console.log(result[0].pass);
@@ -77,12 +77,15 @@ app.get('/kisiler',(req,res)=>{
 
 
 app.get('/kisiler/:isim',(req,res)=>{
+   console.log([req.params.isim]);
    con.query("SELECT * FROM users WHERE name = ?", [req.params.isim], (err, result, fields) => {
 
-        if (!err)
-          // console.log(result);
+        if (!err){
+          console.log('Deneme: ');
+           console.log(result);
            //console.log(result[0].id);
           res.send(result);
+        }
             else
             console.log(err);
     })
@@ -112,7 +115,7 @@ app.delete('/kisiler/sil/:isim',(req,res)=>{
  app.post('/ekle', (req,res)=>{
   
  
-  console.log('Deneme: ');
+  
    //console.log(result[0].id);
   //console.log(req.body.length);
    con.query("SELECT * FROM users",  (err, result, fields) => {
