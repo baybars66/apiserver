@@ -13,6 +13,8 @@ app.use(function(req, res, next) {
   next();
 });
 
+
+
 // / Add headers
 // app.use(function (req, res, next) {
 
@@ -72,6 +74,28 @@ app.get('/kisiler',(req,res)=>{
             console.log(err);
     })
 });
+
+
+
+app.get('/Country',(req,res)=>{
+
+    con.query("SELECT name FROM Country",  (err, result, fields) => {
+
+        if (!err)
+        { // console.log(result[0].pass);
+          console.log(result);
+           //console.log(result[0].id);
+          res.send(result);
+         // res.send(result[0].pass);
+        
+        }
+            else
+            console.log(err);
+    })
+});
+
+
+
 
 // GET SPESİFİC USER
 
