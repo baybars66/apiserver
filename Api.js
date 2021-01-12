@@ -94,8 +94,40 @@ app.get('/Country',(req,res)=>{
     })
 });
 
+app.get('/Desc',(req,res)=>{
+
+  con.query("SELECT name FROM Description",  (err, result, fields) => {
+
+      if (!err)
+      { // console.log(result[0].pass);
+        console.log(result);
+         //console.log(result[0].id);
+        res.send(result);
+       // res.send(result[0].pass);
+      
+      }
+          else
+          console.log(err);
+  })
+});
 
 
+app.get('/Cat',(req,res)=>{
+
+  con.query("SELECT name FROM Category",  (err, result, fields) => {
+
+      if (!err)
+      { // console.log(result[0].pass);
+        console.log(result);
+         //console.log(result[0].id);
+        res.send(result);
+       // res.send(result[0].pass);
+      
+      }
+          else
+          console.log(err);
+  })
+});
 
 // GET SPESİFİC USER
 
