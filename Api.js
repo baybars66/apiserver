@@ -168,28 +168,29 @@ app.delete('/kisiler/sil/:isim',(req,res)=>{
 // ADD USER
 
 
- app.post('/ekle', (req,res)=>{
+ app.post('/Add', (req,res)=>{
   
  
   
-   //console.log(result[0].id);
-  //console.log(req.body.length);
-   con.query("SELECT * FROM users",  (err, result, fields) => {
+//    //console.log(result[0].id);
+//   //console.log(req.body.length);
+//    con.query("SELECT * FROM users",  (err, result, fields) => {
 
-    if (!err)
-  //   { // console.log(result[0].pass);
-  //      console.log(result[0].id);
+//     if (!err)
+//   //   { // console.log(result[0].pass);
+//   //      console.log(result[0].id);
    
-     res.send(req.body[1].pass);
-    // console.log('yok');
+//      res.send(req.body[1].pass);
+//     // console.log('yok');
     
-        else
-        console.log(err);
+//         else
+//         console.log(err);
         
- })
+//  })
 
  // let veri = req.body;
   console.log('Veri: ');
+  console.log(req.body);
  
 
 
