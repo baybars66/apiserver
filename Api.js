@@ -10,6 +10,7 @@ app.use(bodyparser.json());
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
   next();
 });
 
@@ -60,7 +61,7 @@ app.listen(port, () => console.log(`Server localhost:${port} üzerinde ayakta`) 
 
 app.get('/kisiler',(req,res)=>{
   console.log('deneme');
-    con.query("SELECT name FROM users",  (err, result, fields) => {
+    con.query("SELECT id, name FROM users",  (err, result, fields) => {
 
         if (!err)
         { // console.log(result[0].pass);
@@ -150,8 +151,9 @@ app.get('/kisiler/:isim',(req,res)=>{
 // DELETE USER
 
 
-app.delete('/kisiler/sil/:isim',(req,res)=>{
-  con.query("DELETE FROM users WHERE name = ?", [req.params.isim], (err, result, fields) => {
+app.delete('/kisiler/sil/:id',(req,res)=>{
+  console.log("geldi");
+  con.query("DELETE FROM users WHERE id = ?", [req.params.id], (err, result, fields) => {
 
     if (!err)
       // console.log(result);
@@ -161,6 +163,9 @@ app.delete('/kisiler/sil/:isim',(req,res)=>{
         else
         console.log(err);
 })
+
+
+
 });
 
 
