@@ -61,7 +61,7 @@ app.listen(port, () => console.log(`Server localhost:${port} üzerinde ayakta`) 
 
 app.get('/kisiler',(req,res)=>{
   console.log('deneme');
-    con.query("SELECT id, name FROM users",  (err, result, fields) => {
+    con.query("SELECT name FROM users",  (err, result, fields) => {
 
         if (!err)
         { // console.log(result[0].pass);
@@ -153,7 +153,7 @@ app.get('/kisiler/:isim',(req,res)=>{
 
 app.delete('/kisiler/sil/:id',(req,res)=>{
   console.log("geldi");
-  con.query("DELETE FROM users WHERE id = ?", [req.params.id], (err, result, fields) => {
+  con.query("DELETE FROM users WHERE name = ?", [req.params.id], (err, result, fields) => {
 
     if (!err)
       // console.log(result);
@@ -197,6 +197,72 @@ app.delete('/kisiler/sil/:id',(req,res)=>{
   console.log('Veri: ');
   console.log(req.body);
  
+
+
+});
+
+// DELETE DESCRIĞTION
+
+app.delete('/Desc/sil/:name',(req,res)=>{
+  console.log("geldi");
+  con.query("DELETE FROM Description WHERE name = ?", [req.params.name],(err, result, fields) => {
+
+    if (!err)
+      // console.log(result);
+       //console.log(result[0].id);
+      res.send('DELTED');
+
+        else
+        console.log(err);
+})
+});
+// ADD DESCRIĞTIO
+app.post('/Desc/Add/:name',(req,res)=>{
+  console.log(req.params.name);
+  const bb = "INSERT INTO Description (name) VALUES ('" + [req.params.name] +"')";
+  console.log(bb);
+ // console.log(req.body);
+     con.query(bb, (err, result, fields) => {
+
+//   con.query("INSERT INTO Description (name) VALUES ('dede')", (err, result, fields) => {
+
+    if (!err)
+      // console.log(result);
+
+       //console.log(result[0].id);
+      res.send('DELTED');
+   
+        else
+        console.log(err);
+   })
+
+
+
+});
+
+app.post('/Kull/Add/',(req,res)=>{
+
+ const user = req.body;
+ console.log(user);
+  // VALUES ('${fullName}', '${emailAddress}', '${city}', ${country}, ${created_at} )`;
+  // db.query(sql,function (err, data) {
+  const dd = "INSERT INTO users (name, pass) VALUES ('" + user.name + "', '" + user.pass +"')";
+  console.log(dd);
+ // console.log(req.body);
+    con.query(dd, (err, result, fields) => {
+
+// //  con.query("INSERT INTO Description (name) VALUES ('dede')", (err, result, fields) => {
+
+    if (!err)
+      // console.log(result);
+
+       //console.log(result[0].id);
+      res.send('DELTED');
+   
+        else
+        console.log(err);
+   })
+
 
 
 });
