@@ -16,26 +16,6 @@ app.use(function(req, res, next) {
 
 
 
-// / Add headers
-// app.use(function (req, res, next) {
-
-//     // Website you wish to allow to connect
-//     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8888');
-
-//     // Request methods you wish to allow
-//     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-
-//     // Request headers you wish to allow
-//     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-
-//     // Set to true if you need the website to include cookies in the requests sent
-//     // to the API (e.g. in case you use sessions)
-//     res.setHeader('Access-Control-Allow-Credentials', true);
-
-//     // Pass to next layer of middleware
-//     next();
-// });
-
 var con = mysql.createConnection({
  
 
@@ -43,7 +23,7 @@ host: "88.250.131.163",
  user: "bay66",
  password: "super66",
  database: "Mrts2020",
- //multipleStatements: true
+
 
 });
 
@@ -58,214 +38,207 @@ app.listen(port, () => console.log(`Server localhost:${port} üzerinde ayakta`) 
 
 // GET USERS ALL
 
-
 app.get('/kisiler',(req,res)=>{
-  console.log('deneme');
-    con.query("SELECT name FROM users",  (err, result, fields) => {
-
-        if (!err)
-        { // console.log(result[0].pass);
-          console.log(result);
-           //console.log(result[0].id);
-          res.send(result);
-         // res.send(result[0].pass);
-        
-        }
-            else
-            console.log(err);
+  con.query("SELECT name FROM users",  (err, result, fields) => {
+  if (!err)
+      res.send(result);
+  else
+      console.log(err);
     })
 });
 
-
-
-app.get('/Country',(req,res)=>{
-
-    con.query("SELECT name FROM Country",  (err, result, fields) => {
-
-        if (!err)
-        { // console.log(result[0].pass);
-          console.log(result);
-           //console.log(result[0].id);
-          res.send(result);
-         // res.send(result[0].pass);
-        
-        }
-            else
-            console.log(err);
-    })
-});
-
-app.get('/Desc',(req,res)=>{
-
-  con.query("SELECT name FROM Description",  (err, result, fields) => {
-
-      if (!err)
-      { // console.log(result[0].pass);
-        console.log(result);
-         //console.log(result[0].id);
-        res.send(result);
-       // res.send(result[0].pass);
-      
-      }
-          else
-          console.log(err);
-  })
-});
-
-
-app.get('/Cat',(req,res)=>{
-
-  con.query("SELECT name FROM Category",  (err, result, fields) => {
-
-      if (!err)
-      { // console.log(result[0].pass);
-        console.log(result);
-         //console.log(result[0].id);
-        res.send(result);
-       // res.send(result[0].pass);
-      
-      }
-          else
-          console.log(err);
-  })
-});
 
 // GET SPESİFİC USER
 
-
 app.get('/kisiler/:isim',(req,res)=>{
-   console.log([req.params.isim]);
-   con.query("SELECT * FROM users WHERE name = ?", [req.params.isim], (err, result, fields) => {
+  console.log([req.params.isim]);
+  con.query("SELECT * FROM users WHERE name = ?", [req.params.isim], (err, result, fields) => {
 
-        if (!err){
-          console.log('Deneme: ');
-           console.log(result);
-           //console.log(result[0].id);
-          res.send(result);
-        }
-            else
-            console.log(err);
-    })
+       if (!err){
+         console.log('Deneme: ');
+          console.log(result);
+          //console.log(result[0].id);
+         res.send(result);
+       }
+           else
+           console.log(err);
+   })
 });
+
+
+//ADD USER
+
+app.post('/Kull/Add/',(req,res)=>{
+  const user = req.body;
+  const dd = "INSERT INTO users (name, pass) VALUES ('" + user.name + "', '" + user.pass +"')";
+  con.query(dd, (err, result, fields) => {
+  if (!err)
+   res.send('USER INSERTED');
+  else
+   console.log(err);
+   })
+});
+
 
 // DELETE USER
 
-
 app.delete('/kisiler/sil/:id',(req,res)=>{
-  console.log("geldi");
   con.query("DELETE FROM users WHERE name = ?", [req.params.id], (err, result, fields) => {
-
-    if (!err)
-      // console.log(result);
-       //console.log(result[0].id);
-      res.send('DELTED');
-
-        else
-        console.log(err);
-})
-
-
-
+  if (!err)
+    res.send('USER DELETED');
+  else
+    console.log(err);
+  })
 });
 
 
+// GET DESCRIPTION ALL
 
-// ADD USER
-
-
- app.post('/Add', (req,res)=>{
-  
- 
-  
-//    //console.log(result[0].id);
-//   //console.log(req.body.length);
-//    con.query("SELECT * FROM users",  (err, result, fields) => {
-
-//     if (!err)
-//   //   { // console.log(result[0].pass);
-//   //      console.log(result[0].id);
-   
-//      res.send(req.body[1].pass);
-//     // console.log('yok');
-    
-//         else
-//         console.log(err);
-        
-//  })
-
- // let veri = req.body;
-  console.log('Veri: ');
-  console.log(req.body);
- 
-
-
+app.get('/Desc',(req,res)=>{
+  con.query("SELECT name FROM Description",  (err, result, fields) => {
+   if (!err)
+    res.send(result);
+    else
+    console.log(err);
+  })
 });
 
-// DELETE DESCRIĞTION
+
+// ADD DESCRIPTION
+
+app.post('/Desc/Add/:name',(req,res)=>{
+  const bb = "INSERT INTO Description (name) VALUES ('" + [req.params.name] +"')";
+  con.query(bb, (err, result, fields) => {
+  //con.query("INSERT INTO Description (name) VALUES ('dede')", (err, result, fields) => {
+  if (!err)
+    res.send('DESCRIPTION INSERTED');
+  else
+    console.log(err);
+   })
+});
+
+
+// DELETE DESCRIPTION
 
 app.delete('/Desc/sil/:name',(req,res)=>{
-  console.log("geldi");
   con.query("DELETE FROM Description WHERE name = ?", [req.params.name],(err, result, fields) => {
-
-    if (!err)
-      // console.log(result);
-       //console.log(result[0].id);
-      res.send('DELTED');
-
-        else
-        console.log(err);
+  if (!err)
+    res.send('DESCRIPTION DELETED');
+  else
+    console.log(err);
 })
 });
-// ADD DESCRIĞTIO
-app.post('/Desc/Add/:name',(req,res)=>{
-  console.log(req.params.name);
-  const bb = "INSERT INTO Description (name) VALUES ('" + [req.params.name] +"')";
-  console.log(bb);
- // console.log(req.body);
-     con.query(bb, (err, result, fields) => {
-
-//   con.query("INSERT INTO Description (name) VALUES ('dede')", (err, result, fields) => {
-
-    if (!err)
-      // console.log(result);
-
-       //console.log(result[0].id);
-      res.send('DELTED');
-   
-        else
-        console.log(err);
-   })
 
 
-
+// GET CATEGORIES ALL
+ 
+app.get('/Cat',(req,res)=>{
+  con.query("SELECT name FROM Category",  (err, result, fields) => {
+  if (!err)
+    res.send(result);
+  else
+    console.log(err);
+  })
 });
 
-app.post('/Kull/Add/',(req,res)=>{
 
- const user = req.body;
- console.log(user);
-  // VALUES ('${fullName}', '${emailAddress}', '${city}', ${country}, ${created_at} )`;
-  // db.query(sql,function (err, data) {
-  const dd = "INSERT INTO users (name, pass) VALUES ('" + user.name + "', '" + user.pass +"')";
-  console.log(dd);
- // console.log(req.body);
-    con.query(dd, (err, result, fields) => {
+// ADD CATEGORY
 
-// //  con.query("INSERT INTO Description (name) VALUES ('dede')", (err, result, fields) => {
-
-    if (!err)
-      // console.log(result);
-
-       //console.log(result[0].id);
-      res.send('DELTED');
-   
-        else
-        console.log(err);
+app.post('/Cat/Add/:name',(req,res)=>{
+  const cc = "INSERT INTO Category (name) VALUES ('" + [req.params.name] +"')";
+  con.query(cc, (err, result, fields) => {
+  //con.query("INSERT INTO Description (name) VALUES ('dede')", (err, result, fields) => {
+  if (!err)
+    res.send('CATEGORY INSERTED');
+  else
+    console.log(err);
    })
-
-
-
 });
+
+
+// DELETE CATEGORY
+
+app.delete('/Cat/sil/:name',(req,res)=>{
+ 
+  con.query("DELETE FROM Category WHERE name = ?", [req.params.name],(err, result, fields) => {
+  if (!err)
+    res.send('CATEGORY DELETED');
+  else
+    console.log(err);
+})
+});
+
+
+
+// GET COUNTRIES ALL
+
+app.get('/Country',(req,res)=>{
+  con.query("SELECT name FROM Country",  (err, result, fields) => {
+  if (!err)
+    res.send(result);
+    else
+     console.log(err);
+    })
+});
+
+
+
+
+// ADD COUNTRY
+
+app.post('/Country/Add/:name',(req,res)=>{
+  const cc = "INSERT INTO Country (name) VALUES ('" + [req.params.name] +"')";
+  con.query(cc, (err, result, fields) => {
+  //con.query("INSERT INTO Description (name) VALUES ('dede')", (err, result, fields) => {
+  if (!err)
+    res.send('COUNTRY INSERTED');
+  else
+    console.log(err);
+   })
+});
+
+
+// DELETE COUNTRY
+
+app.delete('/Country/sil/:name',(req,res)=>{
+  
+  con.query("DELETE FROM Country WHERE name = ?", [req.params.name],(err, result, fields) => {
+  if (!err)
+    res.send('COUNTRY DELETED');
+  else
+    console.log(err);
+})
+});
+
+
+
+//ADD DATA
+
+app.post('/AddData/',(req,res)=>{
+  const all = req.body;
+  const ulke = all.ulke;
+
+  console.log(all);
+  const sql = "INSERT INTO " + ulke + " (User, Depart, Donus, Descrip, Category, Quantity, Price, Estimated) VALUES ('" + all.kullanici + "', '" + all.gidis + "', '" +all.donus + "', '" + all.icerik + "', '" + all.kategory + "', '" + all.adet + "', '" + all.fiyat + "', '" + all.tahmini +"')";
+
+//const sql = "INSERT INTO " + ulke + " (User, Donus) VALUES ('" + all.kullanici + "', '" + all.donus +  "')";
+
+
+console.log(sql);
+
+
+
+  //   const dd = "INSERT INTO users (name, pass) VALUES ('" + user.name + "', '" + user.pass +"')";
+  con.query(sql, (err, result, fields) => {
+  if (!err)
+   res.send('DATA INSERTED');
+  else
+   console.log(err);
+
+   })
+});
+
+
 
 
 
@@ -283,15 +256,3 @@ app.post('/Kull/Add/',(req,res)=>{
   //   console.log("Number of records inserted: " + result.affectedRows);
   // });
 
-
-
-
-   //console.log=(veri);
- // res.send(veri);
-//   con.query("INSERT FROM users WHERE name = ?", [req.params.isim], (err, result, fields) => {
-
-//       console.log(result);
-//        console.log(result[0].id);
-    
-
-       // })
