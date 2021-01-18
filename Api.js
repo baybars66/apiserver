@@ -1,5 +1,8 @@
-const mysql = require('mysql');
 const express = require('express');
+const mysql = require('mysql');
+
+
+
 
 var app= express();
 const bodyparser = require('body-parser');
@@ -12,6 +15,16 @@ app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
   next();
+});
+
+//4. ve 5. dersler
+const path = require('path');
+app.use('/public', express.static(path.join(__dirname, 'public'))); //Haritalama yada eşleştirme klasörü açmış olduk.
+app.get('/', function(req, res){
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
+app.get('/login', function(req, res){
+  res.sendFile(path.join(__dirname, 'login.html'));
 });
 
 
@@ -211,24 +224,49 @@ app.delete('/Country/sil/:name',(req,res)=>{
 });
 
 
+//GET DATA
+
+//await axios.get('http://localhost:5006/Data/:' + e.target.value);
+
+app.get('/Data/:country',(req,res)=>{
+  const veri =[req.params.country];
+  const sql = "SELECT * FROM " + veri;
+  console.log(sql);
+
+  con.query(sql, (err, result, fields) => {
+
+       if (!err){
+         console.log('Deneme: ');
+          console.log(result);
+          //console.log(result[0].id);
+         res.send(result);
+       }
+           else
+           console.log(err);
+   })
+});
 
 //ADD DATA
 
 app.post('/AddData/',(req,res)=>{
   const all = req.body;
   const ulke = all.ulke;
+  const amount = all.adet*all.fiyat;
 
   console.log(all);
-  const sql = "INSERT INTO " + ulke + " (User, Depart, Donus, Descrip, Category, Quantity, Price, Estimated) VALUES ('" + all.kullanici + "', '" + all.gidis + "', '" +all.donus + "', '" + all.icerik + "', '" + all.kategory + "', '" + all.adet + "', '" + all.fiyat + "', '" + all.tahmini +"')";
+  const sql = "INSERT INTO " + ulke + " (User, Depart, Donus, Descrip, Category, Quantity, Price, Estimated, Amount) VALUES ('" + all.kullanici + "', '" + all.gidis + "', '" +all.donus + "', '" + all.icerik + "', '" + all.kategory + "', '" + all.adet + "', '" + all.fiyat + "', '" + all.tahmini + "', '" + amount + "')";
 
 //const sql = "INSERT INTO " + ulke + " (User, Donus) VALUES ('" + all.kullanici + "', '" + all.donus +  "')";
 
 
 console.log(sql);
+console.log(amount);
 
 
 
   //   const dd = "INSERT INTO users (name, pass) VALUES ('" + user.name + "', '" + user.pass +"')";
+
+
   con.query(sql, (err, result, fields) => {
   if (!err)
    res.send('DATA INSERTED');
