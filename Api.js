@@ -228,23 +228,29 @@ app.delete('/Country/sil/:name',(req,res)=>{
 
 //await axios.get('http://localhost:5006/Data/:' + e.target.value);
 
-app.get('/Data/:country',(req,res)=>{
-  const veri =[req.params.country];
-  const sql = "SELECT * FROM " + veri;
-  console.log(sql);
+app.post('/GetData/',(req,res)=>{
+  
+  const ulke = req.body.ulke;
+  const estimated= req.body.estimate;
+  //console.log(ulke, estimated);
+
+ const sql = "SELECT * FROM " + ulke +" WHERE Estimated = "+ "'"+estimated+"'";
+//console.log(sql);
+ //const sql ='SELECT * FROM Balkan WHERE Estimated = "YES"' ;
+
 
   con.query(sql, (err, result, fields) => {
 
        if (!err){
-         console.log('Deneme: ');
-          console.log(result);
+         //console.log('Deneme: ');
+         // console.log(result);
           //console.log(result[0].id);
          res.send(result);
        }
            else
            console.log(err);
    })
-});
+ });
 
 //ADD DATA
 
@@ -276,8 +282,27 @@ console.log(amount);
    })
 });
 
+//DELETE DATA
 
 
+
+app.post('/Data/sil/', (req,res)=>{
+
+  console.log(req.body);
+  const ulke = req.body.ulke;
+  const id = req.body.id;
+  
+const sql = "DELETE FROM " + ulke + " WHERE id =" + "'" + id+ "'";
+console.log(sql);
+
+
+  con.query(sql, (err, result, fields) => {
+  if (!err)
+    res.send('DATA DELETED');
+  else
+    console.log(err);
+})
+ });
 
 
   // var sql = "INSERT INTO users (name, pass) VALUES ?";
@@ -294,3 +319,26 @@ console.log(amount);
   //   console.log("Number of records inserted: " + result.affectedRows);
   // });
 
+
+// Önemli bir örnek
+  //GET DATA
+
+//await axios.get('http://localhost:5006/Data/:' + e.target.value);
+
+// app.get('/GetData/',(req,res)=>{
+//   const veri =[req.params.country];
+//   const sql = "SELECT * FROM " + veri;
+//   console.log(sql);
+
+//   con.query(sql, (err, result, fields) => {
+
+//        if (!err){
+//          console.log('Deneme: ');
+//           console.log(result);
+//           //console.log(result[0].id);
+//          res.send(result);
+//        }
+//            else
+//            console.log(err);
+//    })
+// });
