@@ -32,7 +32,9 @@ app.get('/login', function(req, res){
 var con = mysql.createConnection({
  
 
-host: "88.250.131.163",
+ //host: "192.168.1.33",
+ //host: "localhost",
+ host: "88.250.131.163",
  user: "bay66",
  password: "super66",
  database: "Mrts2020",
@@ -46,12 +48,14 @@ con.connect((err) => {
 
 });
 
-const port = 5006;
+const port = 10066;
 app.listen(port, () => console.log(`Server localhost:${port} üzerinde ayakta`) );
 
 // GET USERS ALL
 
+
 app.get('/kisiler',(req,res)=>{
+  console.log("geldi");
   con.query("SELECT name FROM users",  (err, result, fields) => {
   if (!err)
       res.send(result);
