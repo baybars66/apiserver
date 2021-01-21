@@ -42,11 +42,33 @@ var con = mysql.createConnection({
 
 });
 
-con.connect((err) => {
-  if (err) throw err;
-  console.log("Connected!");
+function Connect() {
+  var con = mysql.createConnection({
+    host: "88.250.131.163",
+    user: "bay66",
+    password: "super66",
+    database: "Mrts2020",
+  });
 
-});
+  con.connect(function(err) {
+      if (err) {
+          console.log('Error connecting to Database');
+          setInterval(Connect, 5000);
+          con.end();
+          }else{
+          console.log('Connected to Database');
+      }
+
+  });
+}
+
+Connect();
+
+// con.connect((err) => {
+//   if (err) throw err;
+//   console.log("Connected!");
+
+// });
 
 const port = 10066;
 app.listen(port, () => console.log(`Server localhost:${port} üzerinde ayakta`) );
