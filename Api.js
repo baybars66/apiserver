@@ -52,10 +52,12 @@ function Connect() {
 
   con.connect(function(err) {
       if (err) {
+           console.log(err);
           console.log('Error connecting to Database');
           setInterval(Connect, 5000);
           con.end();
-          }else{
+          }else
+          {
           console.log('Connected to Database');
       }
 
