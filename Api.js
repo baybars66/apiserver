@@ -1,12 +1,16 @@
 const express = require('express');
 const mysql = require('mysql');
-
-
-
+const router = require('./Routers/Route')
+const DescCont = require ('./Controls/DescCon')
+const KisiCont = require ('./Controls/KisiCont')
+const CatCont = require ('./Controls/CatCont')
+const CountCont = require ('./Controls/CountCont')
+const DataCont = require ('./Controls/DataCont')
+const SumCont = require ('./Controls/SumCont')
 
 var app= express();
+
 const bodyparser = require('body-parser');
-//app.use(express.urlencoded({ extended: true }));
 
 app.use(bodyparser.json());
 
@@ -20,27 +24,25 @@ app.use(function(req, res, next) {
 //4. ve 5. dersler
 const path = require('path');
 app.use('/public', express.static(path.join(__dirname, 'public'))); //Haritalama yada eşleştirme klasörü açmış olduk.
-app.get('/', function(req, res){
-  res.sendFile(path.join(__dirname, 'index.html'));
-});
-app.get('/login', function(req, res){
-  res.sendFile(path.join(__dirname, 'login.html'));
-});
+
+app.use('/', router);
+//app.use('/safe', yonlendirici);
 
 
-
-var con = mysql.createConnection({
+// var con = mysql.createConnection({
  
 
- //host: "192.168.1.33",
- //host: "localhost",
- host: "88.250.131.163",
- user: "bay66",
- password: "super66",
- database: "Mrts2020",
+//  //host: "192.168.1.33",
+//  //host: "localhost",
+//  host: "88.250.131.163",
+//  user: "bay66",
+//  password: "super66",
+//  database: "Mrts2020",
 
 
-});
+// });
+
+
 
 function Connect() {
   var con = mysql.createConnection({
@@ -54,7 +56,7 @@ function Connect() {
       if (err) {
            console.log(err);
           console.log('Error connecting to Database');
-          setInterval(Connect, 5000);
+          setInterval(Connect, 10066);
           con.end();
           }else
           {
@@ -66,271 +68,134 @@ function Connect() {
 
 Connect();
 
-// con.connect((err) => {
-//   if (err) throw err;
-//   console.log("Connected!");
-
-// });
 
 const port = 10066;
 app.listen(port, () => console.log(`Server localhost:${port} üzerinde ayakta`) );
 
 // GET USERS ALL
 
-
-app.get('/kisiler',(req,res)=>{
-  console.log("geldi");
-  con.query("SELECT name FROM users",  (err, result, fields) => {
-  if (!err)
-      res.send(result);
-  else
-      console.log(err);
-    })
-});
-
-
-// GET SPESİFİC USER
-
-app.get('/kisiler/:isim',(req,res)=>{
-  console.log([req.params.isim]);
-  con.query("SELECT * FROM users WHERE name = ?", [req.params.isim], (err, result, fields) => {
-
-       if (!err){
-         console.log('Deneme: ');
-          console.log(result);
-          //console.log(result[0].id);
-         res.send(result);
-       }
-           else
-           console.log(err);
-   })
-});
-
-
-//ADD USER
-
-app.post('/Kull/Add/',(req,res)=>{
-  const user = req.body;
-  const dd = "INSERT INTO users (name, pass) VALUES ('" + user.name + "', '" + user.pass +"')";
-  con.query(dd, (err, result, fields) => {
-  if (!err)
-   res.send('USER INSERTED');
-  else
-   console.log(err);
-   })
-});
-
-
-// DELETE USER
-
-app.delete('/kisiler/sil/:id',(req,res)=>{
-  con.query("DELETE FROM users WHERE name = ?", [req.params.id], (err, result, fields) => {
-  if (!err)
-    res.send('USER DELETED');
-  else
-    console.log(err);
-  })
-});
+app.get('/kisiler', KisiCont.Kisiler);
+app.get('/kisiler/:isim',KisiCont.GetOne);
+app.post('/Kull/Add',KisiCont.KisilerADD);
+app.delete('/kisiler/sil/:id',KisiCont.KisilerDEL);
 
 
 // GET DESCRIPTION ALL
-
-app.get('/Desc',(req,res)=>{
-  con.query("SELECT name FROM Description",  (err, result, fields) => {
-   if (!err)
-    res.send(result);
-    else
-    console.log(err);
-  })
-});
-
-
-// ADD DESCRIPTION
-
-app.post('/Desc/Add/:name',(req,res)=>{
-  const bb = "INSERT INTO Description (name) VALUES ('" + [req.params.name] +"')";
-  con.query(bb, (err, result, fields) => {
-  //con.query("INSERT INTO Description (name) VALUES ('dede')", (err, result, fields) => {
-  if (!err)
-    res.send('DESCRIPTION INSERTED');
-  else
-    console.log(err);
-   })
-});
-
-
-// DELETE DESCRIPTION
-
-app.delete('/Desc/sil/:name',(req,res)=>{
-  con.query("DELETE FROM Description WHERE name = ?", [req.params.name],(err, result, fields) => {
-  if (!err)
-    res.send('DESCRIPTION DELETED');
-  else
-    console.log(err);
-})
-});
+//app.get('/Desc', router);
+app.get('/Desc', DescCont.DescALL);
+app.post('/Desc/Add/:name', DescCont.DescADD);
+app.delete('/Desc/sil/:name', DescCont.DescDEL);
 
 
 // GET CATEGORIES ALL
- 
-app.get('/Cat',(req,res)=>{
-  con.query("SELECT name FROM Category",  (err, result, fields) => {
-  if (!err)
-    res.send(result);
-  else
-    console.log(err);
-  })
-});
-
-
-// ADD CATEGORY
-
-app.post('/Cat/Add/:name',(req,res)=>{
-  const cc = "INSERT INTO Category (name) VALUES ('" + [req.params.name] +"')";
-  con.query(cc, (err, result, fields) => {
-  //con.query("INSERT INTO Description (name) VALUES ('dede')", (err, result, fields) => {
-  if (!err)
-    res.send('CATEGORY INSERTED');
-  else
-    console.log(err);
-   })
-});
-
-
-// DELETE CATEGORY
-
-app.delete('/Cat/sil/:name',(req,res)=>{
- 
-  con.query("DELETE FROM Category WHERE name = ?", [req.params.name],(err, result, fields) => {
-  if (!err)
-    res.send('CATEGORY DELETED');
-  else
-    console.log(err);
-})
-});
+app.get('/Cat', CatCont.CatALL);
+app.post('/Cat/Add/:name', CatCont.CatADD);
+app.delete('/Cat/sil/:name', CatCont.CatDEL);
 
 
 
 // GET COUNTRIES ALL
 
-app.get('/Country',(req,res)=>{
-  con.query("SELECT name FROM Country",  (err, result, fields) => {
-  if (!err)
-    res.send(result);
-    else
-     console.log(err);
-    })
-});
-
-
-
-
-// ADD COUNTRY
-
-app.post('/Country/Add/:name',(req,res)=>{
-  const cc = "INSERT INTO Country (name) VALUES ('" + [req.params.name] +"')";
-  con.query(cc, (err, result, fields) => {
-  //con.query("INSERT INTO Description (name) VALUES ('dede')", (err, result, fields) => {
-  if (!err)
-    res.send('COUNTRY INSERTED');
-  else
-    console.log(err);
-   })
-});
-
-
-// DELETE COUNTRY
-
-app.delete('/Country/sil/:name',(req,res)=>{
-  
-  con.query("DELETE FROM Country WHERE name = ?", [req.params.name],(err, result, fields) => {
-  if (!err)
-    res.send('COUNTRY DELETED');
-  else
-    console.log(err);
-})
-});
+app.get('/Country',CountCont.CountALL);
+app.post('/Country/Add/:name',CountCont.CountADD);
+app.delete('/Country/sil/:name', CountCont.CountDEL);
 
 
 //GET DATA
+app.post('/GetData/', DataCont.DataALL);
+app.post('/AddData/', DataCont.DataADD);
+app.post('/Data/sil/', DataCont.DataDEL);
 
-//await axios.get('http://localhost:5006/Data/:' + e.target.value);
+//**************************************    SUMMARY
 
-app.post('/GetData/',(req,res)=>{
+
+
+app.post('/SUM1/', SumCont.SUM1);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ /*
+  //const estimated = req.body.est;
+//console.log(ulke);
+
+const sql= "SELECT SUM(Amount) AS 'EstSum' FROM  "+ ulke +" WHERE Estimated = 'YES'";
+
+//SELECT SUM(Amount) FROM Balkan WHERE Estimated = 'YES' AND Category= 'Lodging'
+//const sql= 'SELECT SUM(Amount) FROM ' + ulke +" WHERE Estimated = "+ "'"+estimated+"'";
+
+ //const sql = "SELECT * FROM " + ulke +" WHERE Estimated = "+ "'"+estimated+"'";
+
+ //const sql ='SELECT * FROM Balkan WHERE Estimated = "YES"' ;
+
+ console.log(sql);
+
+  con.query(sql, (err, result, fields) => {
+
+       if (!err){
+         //
+          console.log(result);
+
+          var string=JSON.stringify(result);
+          console.log('>> string: ', string );
+          var json =  JSON.parse(string);
+          console.log('>> json: ', json);
+          console.log('>> user.name: ', json[0].EstSum);
+         // req.list = json;
+
+       }
+           else
+           console.log(err);
+   })
+
+
+
+   
+ });
+
+
+
+ */
+ app.post('/SUM2/',(req,res)=>{
   
-  const ulke = req.body.ulke;
-  const estimated= req.body.estimate;
-  //console.log(ulke, estimated);
+  const ulke = req.body.name;
+  //const estimated = req.body.est;
+//console.log(ulke);
+const sql= 'SELECT SUM(Amount) FROM ' + ulke +" WHERE Estimated = 'NO'";
+//const sql= 'SELECT SUM(Amount) FROM ' + ulke +" WHERE Estimated = "+ "'"+estimated+"'";
 
- const sql = "SELECT * FROM " + ulke +" WHERE Estimated = "+ "'"+estimated+"'";
-//console.log(sql);
+ //const sql = "SELECT * FROM " + ulke +" WHERE Estimated = "+ "'"+estimated+"'";
+console.log(sql);
  //const sql ='SELECT * FROM Balkan WHERE Estimated = "YES"' ;
 
 
   con.query(sql, (err, result, fields) => {
 
        if (!err){
-         //console.log('Deneme: ');
-         // console.log(result);
-          //console.log(result[0].id);
+         //
+ 
          res.send(result);
        }
            else
            console.log(err);
    })
+
+
+
+   
  });
 
-//ADD DATA
-
-app.post('/AddData/',(req,res)=>{
-  const all = req.body;
-  const ulke = all.ulke;
-  const amount = all.adet*all.fiyat;
-
-  console.log(all);
-  const sql = "INSERT INTO " + ulke + " (User, Depart, Donus, Descrip, Category, Quantity, Price, Estimated, Amount) VALUES ('" + all.kullanici + "', '" + all.gidis + "', '" +all.donus + "', '" + all.icerik + "', '" + all.kategory + "', '" + all.adet + "', '" + all.fiyat + "', '" + all.tahmini + "', '" + amount + "')";
-
-//const sql = "INSERT INTO " + ulke + " (User, Donus) VALUES ('" + all.kullanici + "', '" + all.donus +  "')";
-
-
-console.log(sql);
-console.log(amount);
-
-
-
-  //   const dd = "INSERT INTO users (name, pass) VALUES ('" + user.name + "', '" + user.pass +"')";
-
-
-  con.query(sql, (err, result, fields) => {
-  if (!err)
-   res.send('DATA INSERTED');
-  else
-   console.log(err);
-
-   })
-});
-
-//DELETE DATA
-
-
-
-app.post('/Data/sil/', (req,res)=>{
-
-  console.log(req.body);
-  const ulke = req.body.ulke;
-  const id = req.body.id;
-  
-const sql = "DELETE FROM " + ulke + " WHERE id =" + "'" + id+ "'";
-console.log(sql);
-
-
-  con.query(sql, (err, result, fields) => {
-  if (!err)
-    res.send('DATA DELETED');
-  else
-    console.log(err);
-})
- });
 
 
   // var sql = "INSERT INTO users (name, pass) VALUES ?";
