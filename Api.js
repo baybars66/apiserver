@@ -7,7 +7,7 @@ const CatCont = require ('./Controls/CatCont')
 const CountCont = require ('./Controls/CountCont')
 const DataCont = require ('./Controls/DataCont')
 const SumCont = require ('./Controls/SumCont')
-const Worker = require ('./Controls/Worker')
+
 var app= express();
 
 const bodyparser = require('body-parser');

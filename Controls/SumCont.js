@@ -1,6 +1,6 @@
 
 const express = require('express');
-const Worker= require('./Worker');
+
 const mysql = require('mysql');
 
 var app= express(); 
@@ -22,7 +22,7 @@ module.exports.ESTSUM =  (req, res)=>{
     
     var EstSumSql= "SELECT SUM(Amount) AS 'Sum' FROM  "+ ulke +" WHERE Estimated = 'YES'";
      con.query(EstSumSql, (err, result) => {
-//const veri = Worker.work1(result);
+
         var string=JSON.stringify(result);
         var veri =  JSON.parse(string);
         console.log(veri);
@@ -38,7 +38,7 @@ module.exports.ESTSUM =  (req, res)=>{
         //console.log(ulke);
         var RealSumSql= "SELECT SUM(Amount) AS 'Sum' FROM  "+ ulke +" WHERE Estimated = 'NO'";
         con.query(RealSumSql, (err, result) => {
-           // veri = Worker.work1(result);
+       
             var string=JSON.stringify(result);
             var veri =  JSON.parse(string);
             res.send(veri);
