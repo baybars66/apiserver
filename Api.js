@@ -7,7 +7,7 @@ const CatCont = require ('./Controls/CatCont')
 const CountCont = require ('./Controls/CountCont')
 const DataCont = require ('./Controls/DataCont')
 const SumCont = require ('./Controls/SumCont')
-
+const Worker = require ('./Controls/Worker')
 var app= express();
 
 const bodyparser = require('body-parser');
@@ -29,18 +29,18 @@ app.use('/', router);
 //app.use('/safe', yonlendirici);
 
 
-// var con = mysql.createConnection({
+var con = mysql.createConnection({
  
 
-//  //host: "192.168.1.33",
-//  //host: "localhost",
-//  host: "88.250.131.163",
-//  user: "bay66",
-//  password: "super66",
-//  database: "Mrts2020",
+ //host: "192.168.1.33",
+ //host: "localhost",
+ host: "88.250.131.163",
+ user: "bay66",
+ password: "super66",
+ database: "Mrts2020",
 
 
-// });
+});
 
 
 
@@ -71,6 +71,12 @@ Connect();
 
 const port = 10066;
 app.listen(port, () => console.log(`Server localhost:${port} üzerinde ayakta`) );
+
+
+
+////************************************************************************ */
+
+
 
 // GET USERS ALL
 
@@ -110,10 +116,37 @@ app.post('/Data/sil/', DataCont.DataDEL);
 
 
 
-app.post('/SUM1/', SumCont.SUM1);
+app.post('/ESTSUM/', SumCont.ESTSUM);
+app.post('/REALSUM/',SumCont.REALSUM );
 
 
 
+
+
+
+
+
+
+
+
+
+  
+
+
+
+// var results;
+
+// var db = function(){
+//     pool.query('SELECT name FROM Exercises', function(error, results, fields){
+//     if (error) throw error;
+//     res = results;
+// })
+//     return res;
+// }
+
+// module.exports = {
+//     db: db,
+// }
 
 
 

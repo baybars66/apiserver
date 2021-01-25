@@ -1,82 +1,55 @@
 
+const express = require('express');
+const Worker= require('./Worker');
 const mysql = require('mysql');
-const con = mysql.createConnection({
- 
 
+var app= express(); 
+const con = mysql.createConnection({
     //host: "192.168.1.33",
     //host: "localhost",
     host: "88.250.131.163",
     user: "bay66",
     password: "super66",
     database: "Mrts2020",
-   
-   
-   });
-
-
+});
 
 
 //**************************************    SUMMARY
 
-
-
-module.exports.SUM1 = (req,res)=>{
-  
+module.exports.ESTSUM =  (req, res)=>{
     const ulke = req.body.name;
-    const cat = {
-        ali : "66",
-        veli : "77"
-  
-    }
-   var CAT = "SELECT * FROM Category" ;
-   con.query(CAT, (err, result, fields) => {
-  
-   if (!err){
-    //
-     console.log(result);
-  
-     var string=JSON.stringify(result);
-     console.log('>> string: ', string );
-     var cat =  JSON.parse(string);
-     console.log('>> json: ', cat);
-   
+   // console.log(ulke);
     
-     console.log('>> json: ', cat.length);
-     console.log('>> user.name: ', cat[0].Name);
-    // req.list = json;
-  
-  }
-      else
-      console.log(err);
-  });
-  
-  const EstSumSql= "SELECT SUM(Amount) AS 'EstSum' FROM  "+ ulke +" WHERE Estimated = 'YES'";
-   con.query(EstSumSql, (err, result, fields) => {
-  
-   if (!err){
-    //
-     console.log(result);
-  
-     var Esmstring=JSON.stringify(result);
-     console.log('>> string: ', Esmstring );
-     var EstSum =  JSON.parse(Esmstring);
+    var EstSumSql= "SELECT SUM(Amount) AS 'Sum' FROM  "+ ulke +" WHERE Estimated = 'YES'";
+     con.query(EstSumSql, (err, result) => {
+//const veri = Worker.work1(result);
+        var string=JSON.stringify(result);
+        var veri =  JSON.parse(string);
+        console.log(veri);
+        res.send(veri);
+        res.end();
     
-   
-    
-    // console.log('>> json: ', cat.length);
-    console.log('>> user.name: ', EstSum[0].EstSum);
-    // req.list = json;
+    });
+
+}
+  module.exports.REALSUM = (req,res)=>{
+        
+        var ulke = req.body.name;
+        //console.log(ulke);
+        var RealSumSql= "SELECT SUM(Amount) AS 'Sum' FROM  "+ ulke +" WHERE Estimated = 'NO'";
+        con.query(RealSumSql, (err, result) => {
+           // veri = Worker.work1(result);
+            var string=JSON.stringify(result);
+            var veri =  JSON.parse(string);
+            res.send(veri);
+            res.send();
+          
+        });
+
+
+
+
   
-  }
-      else
-      console.log(err);
-  });
-  
-  
-  
-  
-  
-  
-  }
-  
+}
+ 
 
