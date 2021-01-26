@@ -117,7 +117,10 @@ app.post('/Data/sil/', DataCont.DataDEL);
 
 
 app.post('/ESTSUM/', SumCont.ESTSUM);
-app.post('/REALSUM/',SumCont.REALSUM );
+app.post('/REALSUM/',SumCont.Baba);
+
+
+//app.post('/REALSUM/', SumCont.bb);
 
 
 
