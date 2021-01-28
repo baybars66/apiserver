@@ -1,13 +1,12 @@
 
-const express = require('express');
+//const express = require('express');
 //const blu = require("bluebird");
 const mysql = require('mysql');
 var Promise = require("bluebird");
-// Note that the library's classes are not properties of the main export
-// so we require and promisifyAll them manually
-Promise.promisifyAll(require("mysql/lib/Connection").prototype);
-Promise.promisifyAll(require("mysql/lib/Pool").prototype);
-var app= express(); 
+
+// Promise.promisifyAll(require("mysql/lib/Connection").prototype);
+// Promise.promisifyAll(require("mysql/lib/Pool").prototype);
+// var app= express(); 
 
 
 
@@ -36,24 +35,24 @@ const db  = Promise.promisifyAll(con);
 
 //**************************************    SUMMARY
 
-module.exports.ESTSUM =  (req, res)=>{
+// module.exports.ESTSUM =  (req, res)=>{
  
-    const ulke = req.body.name;
-   // console.log(ulke);
+//     const ulke = req.body.name;
+//    // console.log(ulke);
     
-    var EstSumSql= "SELECT SUM(Amount) AS 'Sum' FROM  "+ ulke +" WHERE Estimated = 'YES'";
-     con.query(EstSumSql, (err, result) => {
-        //console.log(result);
-        var string=JSON.stringify(result);
-        //console.log(string);
-        var veri =  JSON.parse(string);
-       // console.log(veri);
-        res.send(veri);
-        res.end();
+//     var EstSumSql= "SELECT SUM(Amount) AS 'Sum' FROM  "+ ulke +" WHERE Estimated = 'YES'";
+//      con.query(EstSumSql, (err, result) => {
+//         //console.log(result);
+//         var string=JSON.stringify(result);
+//         //console.log(string);
+//         var veri =  JSON.parse(string);
+//        // console.log(veri);
+//         res.send(veri);
+//         res.end();
     
-    });
+//     });
   
-}
+// }
  
 
 

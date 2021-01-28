@@ -29,7 +29,7 @@ module.exports.CatALL = (req,res)=>{
   module.exports.CatADD = (req,res)=>{
     const cc = "INSERT INTO Category (name) VALUES ('" + [req.params.name] +"')";
     con.query(cc, (err, result, fields) => {
-    //con.query("INSERT INTO Description (name) VALUES ('dede')", (err, result, fields) => {
+   
     if (!err)
       res.send('CATEGORY INSERTED');
     else

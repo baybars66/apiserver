@@ -49,14 +49,14 @@ module.exports.DataALL = (req,res)=>{
     const ulke = all.ulke;
     const amount = all.adet*all.fiyat;
   
-    console.log(all);
+    //console.log(all);
     const sql = "INSERT INTO " + ulke + " (User, Depart, Donus, Descrip, Category, Quantity, Price, Estimated, Amount) VALUES ('" + all.kullanici + "', '" + all.gidis + "', '" +all.donus + "', '" + all.icerik + "', '" + all.kategory + "', '" + all.adet + "', '" + all.fiyat + "', '" + all.tahmini + "', '" + amount + "')";
   
   //const sql = "INSERT INTO " + ulke + " (User, Donus) VALUES ('" + all.kullanici + "', '" + all.donus +  "')";
   
   
-  console.log(sql);
-  console.log(amount);
+  // console.log(sql);
+  // console.log(amount);
   
   
   
@@ -78,12 +78,12 @@ module.exports.DataALL = (req,res)=>{
   
   module.exports.DataDEL =  (req,res)=>{
   
-    console.log(req.body);
+   // console.log(req.body);
     const ulke = req.body.ulke;
     const id = req.body.id;
     
   const sql = "DELETE FROM " + ulke + " WHERE id =" + "'" + id+ "'";
-  console.log(sql);
+ // console.log(sql);
   
   
     con.query(sql, (err, result, fields) => {

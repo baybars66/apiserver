@@ -1,13 +1,13 @@
 
-const express = require('express');
+//const express = require('express');
 //const blu = require("bluebird");
 const mysql = require('mysql');
 var Promise = require("bluebird");
 // Note that the library's classes are not properties of the main export
 // so we require and promisifyAll them manually
-Promise.promisifyAll(require("mysql/lib/Connection").prototype);
-Promise.promisifyAll(require("mysql/lib/Pool").prototype);
-var app= express(); 
+//Promise.promisifyAll(require("mysql/lib/Connection").prototype);
+//Promise.promisifyAll(require("mysql/lib/Pool").prototype);
+//var app= express(); 
 
 const con = mysql.createConnection({
     //host: "192.168.1.33",
@@ -84,12 +84,12 @@ module.exports.Basla =  async (req,res)=>{
      });
 
     //console.log("Global All", veri,ali);
-  console.log(rowq1);
+  //console.log(rowq1);
     gidecek.kisiler=rowq1;
     gidecek.country=rowq2;
     gidecek.cat=rowq3;
     gidecek.desc=rowq4;
-    console.log(gidecek);
+   // console.log(gidecek);
     res.send(gidecek);
     res.end();
 
