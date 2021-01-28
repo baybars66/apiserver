@@ -7,6 +7,8 @@ const CatCont = require ('./Controls/CatCont')
 const CountCont = require ('./Controls/CountCont')
 const DataCont = require ('./Controls/DataCont')
 const SumCont = require ('./Controls/SumCont')
+const Basla = require ('./Controls/Basla')
+const SumDetail = require ('./Controls/SumDetail')
 
 var app= express();
 
@@ -80,6 +82,8 @@ app.listen(port, () => console.log(`Server localhost:${port} üzerinde ayakta`) 
 
 // GET USERS ALL
 
+app.get('/Basla', Basla.Basla);
+
 app.get('/kisiler', KisiCont.Kisiler);
 app.get('/kisiler/:isim',KisiCont.GetOne);
 app.post('/Kull/Add',KisiCont.KisilerADD);
@@ -116,11 +120,10 @@ app.post('/Data/sil/', DataCont.DataDEL);
 
 
 
-app.post('/ESTSUM/', SumCont.ESTSUM);
-app.post('/REALSUM/',SumCont.Baba);
+app.post('/SUM/',SumCont.SUM);
+app.post('/DetailSum/',SumDetail.SUMDETAIL);
 
 
-//app.post('/REALSUM/', SumCont.bb);
 
 
 

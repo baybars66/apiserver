@@ -1,10 +1,18 @@
 
 const express = require('express');
-
+//const blu = require("bluebird");
 const mysql = require('mysql');
-const Promise = require("bluebird");
-
+var Promise = require("bluebird");
+// Note that the library's classes are not properties of the main export
+// so we require and promisifyAll them manually
+Promise.promisifyAll(require("mysql/lib/Connection").prototype);
+Promise.promisifyAll(require("mysql/lib/Pool").prototype);
 var app= express(); 
+
+
+
+
+
 const con = mysql.createConnection({
     //host: "192.168.1.33",
     //host: "localhost",
@@ -14,29 +22,22 @@ const con = mysql.createConnection({
     database: "Mrts2020",
 });
 
-
-module.exports.Baba = (req, res) =>{
-  
-    global.db  = Promise.promisifyAll(con);
-   db.queryAsync("SELECT * FROM users").then(function(rows){   
-        console.log(rows);
-       
-      // res.send(rows);
-    });
-     
-    db.queryAsync("SELECT * FROM Balkan").then(function(rows){   
-        console.log(rows);
-       
-      // res.send(rows);
-    });
-}
+const db  = Promise.promisifyAll(con);
 
 
+
+
+
+
+
+
+
+    
 
 //**************************************    SUMMARY
 
 module.exports.ESTSUM =  (req, res)=>{
-
+ 
     const ulke = req.body.name;
    // console.log(ulke);
     
@@ -53,92 +54,42 @@ module.exports.ESTSUM =  (req, res)=>{
     });
   
 }
-  module.exports.REALSUM = (req,res)=>{
-        var veri="";
-        var ulke = req.body.name;
-        //console.log(ulke);
-        var RealSumSql= "SELECT SUM(Amount) AS 'Sum' FROM  "+ ulke +" WHERE Estimated = 'NO'";
-        con.query(RealSumSql, async (err, result) => {
-         
-            var string=JSON.stringify(result);
-             veri =  JSON.parse(string);
-            res.send(veri);
-
-            res.end();
-            console.log("Local veri", veri);
-          
-        });
- console.log("Global veri", veri);
-}
  
 
-module.exports.Denemem =  (req,res)=>{
-    var veri="";
 
-    var ulke = req.body.name;
-    //console.log(ulke);
-    var RealSumSql= "SELECT SUM(Amount) AS 'Sum' FROM  "+ ulke +" WHERE Estimated = 'NO'";
-    con.query(RealSumSql, (err, result) => {
-     
-        var string=JSON.stringify(result);
-         veri =  JSON.parse(string);
-        res.send(veri);
+module.exports.SUM =  async (req,res)=>{
 
-        res.end();
-        console.log("Local veri", veri);
-      
-    });
-console.log("Global veri", veri);
-}
+    var Gidecek={
+        RealTotal : "",
+        EstTotal : "",
+
+       
+    }
+ 
+    var ulke = req.body.ulke;
+    console.log("SUM dayım ", ulke);
 
 
-// Thing.list = function (done) {
-//     db.query("SELECT * FROM thing...",function (err,data) {
-//       if (err) {
-//         done(err)
-//       } else {
-//         done(null,data);
-//       }
-//     });
-//   };
-//   module.exports = Thing;
-
-
-
-
-
-// module.exports.bb = (req, res) =>{
-//     var ulke = req.body.name;
-
-//  var sql = "SELECT * FROM Category";
-//  con.query(sql, (err, sonuc)=>{
-   
-//     var kategori=[];
-//     // for (var i=0; i<veri.length; ++i){
-//     //  out.push(veri[i].Name);}
-//   for (var i=0; i<sonuc.length; ++i){
-//         kategori.push(sonuc[i].Name);
-//     }
-   
-//    console.log(kategori);
-
-
-//     var gidecek=[];
-//    for(var i=0; i<kategori.length; ++i){
-//     var sql ="SELECET SUM(Amount)AS " + kategori[i] +" FROM " + ulke + " WHERE Categort = " + kategori[i]
-//     con.query(sql, (err, sonuc)=>{
-//      console.log(result);
-//        // gidecek.push(result);
+    const q1= "SELECT SUM(Amount) AS 'RealTotal' FROM  "+ ulke +" WHERE Estimated = 'NO'";
+    const q2= "SELECT SUM(Amount) AS 'EstTotal' FROM  "+ ulke +" WHERE Estimated = 'YES'";
     
-//     }
-   
-//    }
+
+    await db.queryAsync(q1).then(function(rows){
+        // var string=JSON.stringify(rows);
+       // rowq1 =  JSON.parse(string);
+      Gidecek.RealTotal=rows[0].RealTotal;
+    console.log("Ulkeler veri", Gidecek.RealTotal);
+    });
+
+    await db.queryAsync(q2).then(function(rows){
+     
+      Gidecek.EstTotal=rows[0].EstTotal;
+      
+        console.log("Ulkeler veri", Gidecek);
+    });
 
 
-
-
-
-
-// }
-
-
+ res.send(Gidecek);
+ res.end();
+    
+}
