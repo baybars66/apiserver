@@ -45,7 +45,7 @@ module.exports.GetOne = (req,res)=>{
   //ADD USER
   
   module.exports.KisilerADD = (req,res)=>{
-      console.log('ADD kişiler');
+     // console.log('ADD kişiler',req.body);
     const user = req.body;
     const dd = "INSERT INTO users (name, pass) VALUES ('" + user.name + "', '" + user.pass +"')";
     con.query(dd, (err, result, fields) => {

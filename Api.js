@@ -86,7 +86,7 @@ app.get('/Basla', Basla.Basla);
 
 app.get('/kisiler', KisiCont.Kisiler);
 app.get('/kisiler/:isim',KisiCont.GetOne);
-app.post('/Kull/Add',KisiCont.KisilerADD);
+app.post('/Kull/Add/',KisiCont.KisilerADD);
 app.delete('/kisiler/sil/:id',KisiCont.KisilerDEL);
 
 
