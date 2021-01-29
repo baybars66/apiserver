@@ -8,10 +8,6 @@ var Promise = require("bluebird");
 // Promise.promisifyAll(require("mysql/lib/Pool").prototype);
 // var app= express(); 
 
-
-
-
-
 const con = mysql.createConnection({
     //host: "192.168.1.33",
     //host: "localhost",
@@ -22,39 +18,6 @@ const con = mysql.createConnection({
 });
 
 const db  = Promise.promisifyAll(con);
-
-
-
-
-
-
-
-
-
-    
-
-//**************************************    SUMMARY
-
-// module.exports.ESTSUM =  (req, res)=>{
- 
-//     const ulke = req.body.name;
-//    // console.log(ulke);
-    
-//     var EstSumSql= "SELECT SUM(Amount) AS 'Sum' FROM  "+ ulke +" WHERE Estimated = 'YES'";
-//      con.query(EstSumSql, (err, result) => {
-//         //console.log(result);
-//         var string=JSON.stringify(result);
-//         //console.log(string);
-//         var veri =  JSON.parse(string);
-//        // console.log(veri);
-//         res.send(veri);
-//         res.end();
-    
-//     });
-  
-// }
- 
-
 
 module.exports.SUM =  async (req,res)=>{
 
@@ -69,8 +32,8 @@ module.exports.SUM =  async (req,res)=>{
     console.log("SUM dayım ", ulke);
 
 
-    const q1= "SELECT SUM(Amount) AS 'RealTotal' FROM  "+ ulke +" WHERE Estimated = 'NO'";
-    const q2= "SELECT SUM(Amount) AS 'EstTotal' FROM  "+ ulke +" WHERE Estimated = 'YES'";
+    const q1= "SELECT SUM(Amount) AS 'RealTotal' FROM Tum WHERE name= '"+ ulke +"' AND Estimated = 'NO'";
+    const q2= "SELECT SUM(Amount) AS 'EstTotal' FROM Tum WHERE name= '"+ ulke +"' AND Estimated = 'YES'";
     
 
     await db.queryAsync(q1).then(function(rows){

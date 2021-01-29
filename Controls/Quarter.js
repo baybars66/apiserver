@@ -20,9 +20,10 @@ const con = mysql.createConnection({
 
 const db  = Promise.promisifyAll(con);
 
-module.exports.SUMDETAIL =  async (req,res)=>{
-  var ulke = req.body.name;
-  var hangi =req.body.est;
+module.exports.Qua1 =  async (req,res)=>{
+
+  //var ulke = req.body.name;
+  //var hangi =req.body.est;
 
   const SumDetail={
         SumFood : "",

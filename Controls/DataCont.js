@@ -24,7 +24,7 @@ module.exports.DataALL = (req,res)=>{
     const estimated= req.body.estimate;
     //console.log(ulke, estimated);
   
-   const sql = "SELECT * FROM " + ulke +" WHERE Estimated = "+ "'"+estimated+"'";
+   const sql = "SELECT * FROM Tum WHERE Name = '" + ulke+ "' AND Estimated = "+ "'"+estimated+"'";
   //console.log(sql);
    //const sql ='SELECT * FROM Balkan WHERE Estimated = "YES"' ;
   
@@ -50,7 +50,7 @@ module.exports.DataALL = (req,res)=>{
     const amount = all.adet*all.fiyat;
   
     //console.log(all);
-    const sql = "INSERT INTO " + ulke + " (User, Depart, Donus, Descrip, Category, Quantity, Price, Estimated, Amount) VALUES ('" + all.kullanici + "', '" + all.gidis + "', '" +all.donus + "', '" + all.icerik + "', '" + all.kategory + "', '" + all.adet + "', '" + all.fiyat + "', '" + all.tahmini + "', '" + amount + "')";
+    const sql = "INSERT INTO Tum (Name, User, Depart, Donus, Descrip, Category, Quantity, Price, Estimated, Amount) VALUES ('" +all.ulke + "', '" + all.kullanici + "', '" + all.gidis + "', '" +all.donus + "', '" + all.icerik + "', '" + all.kategory + "', '" + all.adet + "', '" + all.fiyat + "', '" + all.tahmini + "', '" + amount + "')";
   
   //const sql = "INSERT INTO " + ulke + " (User, Donus) VALUES ('" + all.kullanici + "', '" + all.donus +  "')";
   
@@ -78,11 +78,13 @@ module.exports.DataALL = (req,res)=>{
   
   module.exports.DataDEL =  (req,res)=>{
   
-   // console.log(req.body);
+    console.log("Data Del deyim***************");
     const ulke = req.body.ulke;
     const id = req.body.id;
+    console.log(id);
     
-  const sql = "DELETE FROM " + ulke + " WHERE id =" + "'" + id+ "'";
+  //const sql = "DELETE FROM Tum WHERE id =" + "'" + id+ "'";
+  const sql = "DELETE FROM Tum WHERE id = '" + id+ "'";
  // console.log(sql);
   
   

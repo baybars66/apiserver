@@ -9,6 +9,7 @@ const DataCont = require ('./Controls/DataCont')
 const SumCont = require ('./Controls/SumCont')
 const Basla = require ('./Controls/Basla')
 const SumDetail = require ('./Controls/SumDetail')
+const Quarter = require ('./Controls/Quarter')
 
 var app= express();
 
@@ -127,6 +128,7 @@ app.post('/DetailSum/',SumDetail.SUMDETAIL);
 
 /**********************************QUARTERS */
 
+app.get('/Q1',Quarter.Qua1);
 
 
 
