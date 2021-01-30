@@ -91,6 +91,7 @@ app.post('/Kull/Add/',KisiCont.KisilerADD);
 app.delete('/kisiler/sil/:id',KisiCont.KisilerDEL);
 
 
+
 // GET DESCRIPTION ALL
 //app.get('/Desc', router);
 app.get('/Desc', DescCont.DescALL);
@@ -129,154 +130,38 @@ app.post('/DetailSum/',SumDetail.SUMDETAIL);
 /**********************************QUARTERS */
 
 app.get('/Q1',Quarter.Qua1);
+app.get('/Q2',Quarter.Qua2);
+app.get('/Q3',Quarter.Qua3);
+app.get('/Q4',Quarter.Qua4);
 
 
-
-
-
-
-
-
-
-
-
-
-
+//  app.post('/SUM2/',(req,res)=>{
   
+//   const ulke = req.body.name;
+//   //const estimated = req.body.est;
+// //console.log(ulke);
+// const sql= 'SELECT SUM(Amount) FROM ' + ulke +" WHERE Estimated = 'NO'";
+// //const sql= 'SELECT SUM(Amount) FROM ' + ulke +" WHERE Estimated = "+ "'"+estimated+"'";
 
+//  //const sql = "SELECT * FROM " + ulke +" WHERE Estimated = "+ "'"+estimated+"'";
+// console.log(sql);
+//  //const sql ='SELECT * FROM Balkan WHERE Estimated = "YES"' ;
 
-
-// var results;
-
-// var db = function(){
-//     pool.query('SELECT name FROM Exercises', function(error, results, fields){
-//     if (error) throw error;
-//     res = results;
-// })
-//     return res;
-// }
-
-// module.exports = {
-//     db: db,
-// }
-
-
-
-
-
-
-
-
-
-
-
-
- /*
-  //const estimated = req.body.est;
-//console.log(ulke);
-
-const sql= "SELECT SUM(Amount) AS 'EstSum' FROM  "+ ulke +" WHERE Estimated = 'YES'";
-
-//SELECT SUM(Amount) FROM Balkan WHERE Estimated = 'YES' AND Category= 'Lodging'
-//const sql= 'SELECT SUM(Amount) FROM ' + ulke +" WHERE Estimated = "+ "'"+estimated+"'";
-
- //const sql = "SELECT * FROM " + ulke +" WHERE Estimated = "+ "'"+estimated+"'";
-
- //const sql ='SELECT * FROM Balkan WHERE Estimated = "YES"' ;
-
- console.log(sql);
-
-  con.query(sql, (err, result, fields) => {
-
-       if (!err){
-         //
-          console.log(result);
-
-          var string=JSON.stringify(result);
-          console.log('>> string: ', string );
-          var json =  JSON.parse(string);
-          console.log('>> json: ', json);
-          console.log('>> user.name: ', json[0].EstSum);
-         // req.list = json;
-
-       }
-           else
-           console.log(err);
-   })
-
-
-
-   
- });
-
-
-
- */
- app.post('/SUM2/',(req,res)=>{
-  
-  const ulke = req.body.name;
-  //const estimated = req.body.est;
-//console.log(ulke);
-const sql= 'SELECT SUM(Amount) FROM ' + ulke +" WHERE Estimated = 'NO'";
-//const sql= 'SELECT SUM(Amount) FROM ' + ulke +" WHERE Estimated = "+ "'"+estimated+"'";
-
- //const sql = "SELECT * FROM " + ulke +" WHERE Estimated = "+ "'"+estimated+"'";
-console.log(sql);
- //const sql ='SELECT * FROM Balkan WHERE Estimated = "YES"' ;
-
-
-  con.query(sql, (err, result, fields) => {
-
-       if (!err){
-         //
- 
-         res.send(result);
-       }
-           else
-           console.log(err);
-   })
-
-
-
-   
- });
-
-
-
-  // var sql = "INSERT INTO users (name, pass) VALUES ?";
-  // var values = [
-  //   ['Baybars', 'Marduk66'],
-  //   ['Suela', 'Ani0212'],
-  //   ['Cihan', 'Chaina652'],
-  //   ['Yaser', 'Morocco21'],
-  //   ['Ozgur', 'Russan69']
-    
-  // ];
-  // con.query(sql, [values], function (err, result) {
-  //   if (err) throw err;
-  //   console.log("Number of records inserted: " + result.affectedRows);
-  // });
-
-
-// Önemli bir örnek
-  //GET DATA
-
-//await axios.get('http://localhost:5006/Data/:' + e.target.value);
-
-// app.get('/GetData/',(req,res)=>{
-//   const veri =[req.params.country];
-//   const sql = "SELECT * FROM " + veri;
-//   console.log(sql);
 
 //   con.query(sql, (err, result, fields) => {
 
 //        if (!err){
-//          console.log('Deneme: ');
-//           console.log(result);
-//           //console.log(result[0].id);
+//          //
+ 
 //          res.send(result);
 //        }
 //            else
 //            console.log(err);
 //    })
-// });
+
+
+
+   
+//  });
+
+
