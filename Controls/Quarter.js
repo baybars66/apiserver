@@ -20,16 +20,32 @@ const con = mysql.createConnection({
 
 const db  = Promise.promisifyAll(con);
 
+
+
+
+
+
 module.exports.Qua1 =  async (req,res)=>{
 
   var Gidecek={
     Q1RealTotal : "",
     Q1EstTotal : "",
+    Q1Food:"",
+    Q1Trans: "",
+    Q1Lodging: "",
+    Q1Other: "",
 
    
 }
   var Q1ESTSUM = "SELECT  Sum(Amount) AS 'Q1ESTSUM' FROM Tum WHERE Estimated = 'YES' AND CAST(Depart AS DATE) > '2020-01-01' AND CAST(Depart AS DATE) < '2020-03-30'"
   var Q1REALSUM = "SELECT  Sum(Amount) AS 'Q1REALSUM' FROM Tum WHERE Estimated = 'NO' AND CAST(Depart AS DATE) > '2020-01-01' AND CAST(Depart AS DATE) < '2020-03-30'"
+  var Q1OTHER = "SELECT SUM(Amount) AS 'Other' FROM Tum Where  Estimated = 'NO' AND Category = 'Other' AND CAST(Depart AS DATE) > '2020-01-01' AND CAST(Depart AS DATE) < '2020-03-30'";
+  var Q1FOOD = "SELECT SUM(Amount) AS 'Food' FROM Tum Where  Estimated = 'NO' AND Category = 'Food' AND CAST(Depart AS DATE) > '2020-01-01' AND CAST(Depart AS DATE) < '2020-03-30'";
+  var Q1TRANS = "SELECT SUM(Amount) AS 'Trans' FROM Tum Where  Estimated = 'NO' AND Category = 'Transportation' AND CAST(Depart AS DATE) > '2020-01-01' AND CAST(Depart AS DATE) < '2020-03-30'";
+  var Q1LODGING = "SELECT SUM(Amount) AS 'Lodging' FROM Tum Where  Estimated = 'NO' AND Category = 'Lodging' AND CAST(Depart AS DATE) > '2020-01-01' AND CAST(Depart AS DATE) < '2020-03-30'";
+  
+
+
 
   await db.queryAsync(Q1ESTSUM).then(function(rows){
     //  Food= rows[0].Food;
@@ -45,6 +61,36 @@ module.exports.Qua1 =  async (req,res)=>{
 
    });
 
+   await db.queryAsync(Q1FOOD).then(function(rows){
+    //  Food= rows[0].Food;
+    //console.log(rows);
+    Gidecek.Q1Food=rows[0].Food;
+
+   });
+
+   await db.queryAsync(Q1TRANS).then(function(rows){
+    //  Food= rows[0].Food;
+    //console.log(rows);
+    Gidecek.Q1Trans=rows[0].Trans;
+
+   });
+   await db.queryAsync(Q1LODGING).then(function(rows){
+    //  Food= rows[0].Food;
+    //console.log(rows);
+    Gidecek.Q1Lodging=rows[0].Lodging;
+
+   });
+
+   await db.queryAsync(Q1OTHER).then(function(rows){
+    //  Food= rows[0].Food;
+    //console.log(rows);
+    Gidecek.Q1Other=rows[0].Other;
+
+   });
+
+
+
+
 res.send(Gidecek);
 res.end();
 
@@ -55,95 +101,279 @@ res.end();
 
 module.exports.Qua2 =  async (req,res)=>{
 
-  var Q2ESTSUM = "SELECT  Sum(Amount) AS 'Q2ESTSUM' FROM Tum WHERE Estimated = 'YES' AND CAST(Depart AS DATE) > '2020-04-01' AND CAST(Depart AS DATE) < '2020-06-30'"
-  var Q2REALSUM = "SELECT  Sum(Amount) AS 'Q2REALSUM' FROM Tum WHERE Estimated = 'NO' AND CAST(Depart AS DATE) > '2020-04-01' AND CAST(Depart AS DATE) < '2020-06-30'"
+  //var Q2ESTSUM = "SELECT  Sum(Amount) AS 'Q2ESTSUM' FROM Tum WHERE Estimated = 'YES' AND CAST(Depart AS DATE) > '2020-04-01' AND CAST(Depart AS DATE) < '2020-06-30'"
+  //var Q2REALSUM = "SELECT  Sum(Amount) AS 'Q2REALSUM' FROM Tum WHERE Estimated = 'NO' AND CAST(Depart AS DATE) > '2020-04-01' AND CAST(Depart AS DATE) < '2020-06-30'"
 
-  await db.queryAsync(Q2ESTSUM).then(function(rows){
-      //  Food= rows[0].Food;
-    console.log(rows);
+  var Gidecek={
+    Q1RealTotal : "",
+    Q1EstTotal : "",
+    Q1Food:"",
+    Q1Trans: "",
+    Q1Lodging: "",
+    Q1Other: "",
 
-  });
+   
+}
+  var Q1ESTSUM = "SELECT  Sum(Amount) AS 'Q1ESTSUM' FROM Tum WHERE Estimated = 'YES' AND CAST(Depart AS DATE) > '2020-04-01' AND CAST(Depart AS DATE) < '2020-06-30'"
+  var Q1REALSUM = "SELECT  Sum(Amount) AS 'Q1REALSUM' FROM Tum WHERE Estimated = 'NO' AND CAST(Depart AS DATE) > '2020-04-01' AND CAST(Depart AS DATE) < '2020-06-30'"
+  var Q1OTHER = "SELECT SUM(Amount) AS 'Other' FROM Tum Where  Estimated = 'NO' AND Category = 'Other' AND CAST(Depart AS DATE) > '2020-04-01' AND CAST(Depart AS DATE) < '2020-06-30'";
+  var Q1FOOD = "SELECT SUM(Amount) AS 'Food' FROM Tum Where  Estimated = 'NO' AND Category = 'Food' AND CAST(Depart AS DATE) > '2020-04-01' AND CAST(Depart AS DATE) < '2020-06-30'";
+  var Q1TRANS = "SELECT SUM(Amount) AS 'Trans' FROM Tum Where  Estimated = 'NO' AND Category = 'Transportation' AND CAST(Depart AS DATE) > '2020-04-01' AND CAST(Depart AS DATE) < '2020-06-30'";
+  var Q1LODGING = "SELECT SUM(Amount) AS 'Lodging' FROM Tum Where  Estimated = 'NO' AND Category = 'Lodging' AND CAST(Depart AS DATE) > '2020-04-01' AND CAST(Depart AS DATE) < '2020-06-30'";
+  
 
-  await db.queryAsync(Q2REALSUM).then(function(rows){
+
+
+  await db.queryAsync(Q1ESTSUM).then(function(rows){
     //  Food= rows[0].Food;
-  console.log(rows);
+    //console.log(rows);
+    Gidecek.Q1EstTotal=rows[0].Q1ESTSUM;
 
   });
+
+  await db.queryAsync(Q1REALSUM).then(function(rows){
+    //  Food= rows[0].Food;
+    //console.log(rows);
+    Gidecek.Q1RealTotal=rows[0].Q1REALSUM;
+
+   });
+
+   await db.queryAsync(Q1FOOD).then(function(rows){
+    //  Food= rows[0].Food;
+    //console.log(rows);
+    Gidecek.Q1Food=rows[0].Food;
+
+   });
+
+   await db.queryAsync(Q1TRANS).then(function(rows){
+    //  Food= rows[0].Food;
+    //console.log(rows);
+    Gidecek.Q1Trans=rows[0].Trans;
+
+   });
+   await db.queryAsync(Q1LODGING).then(function(rows){
+    //  Food= rows[0].Food;
+    //console.log(rows);
+    Gidecek.Q1Lodging=rows[0].Lodging;
+
+   });
+
+   await db.queryAsync(Q1OTHER).then(function(rows){
+    //  Food= rows[0].Food;
+    //console.log(rows);
+    Gidecek.Q1Other=rows[0].Other;
+
+   });
+
+
+
+
+res.send(Gidecek);
+res.end();
 
 }
 
 
 module.exports.Qua3 =  async (req,res)=>{
  
-  var Q3ESTSUM = "SELECT  Sum(Amount) AS 'Q3ESTTSUM' FROM Tum WHERE Estimated = 'YES' AND CAST(Depart AS DATE) > '2020-07-01' AND CAST(Depart AS DATE) < '2020-09-30'"
-  var Q3REALSUM = "SELECT  Sum(Amount) AS 'Q3REALSUM' FROM Tum WHERE Estimated = 'NO' AND CAST(Depart AS DATE) > '2020-07-01' AND CAST(Depart AS DATE) < '2020-09-30'"
+ 
+  var Gidecek={
+    Q1RealTotal : "",
+    Q1EstTotal : "",
+    Q1Food:"",
+    Q1Trans: "",
+    Q1Lodging: "",
+    Q1Other: "",
+
+   
+}
+  var Q1ESTSUM = "SELECT  Sum(Amount) AS 'Q1ESTSUM' FROM Tum WHERE Estimated = 'YES' AND CAST(Depart AS DATE) > '2020-07-01' AND CAST(Depart AS DATE) < '2020-09-30'"
+  var Q1REALSUM = "SELECT  Sum(Amount) AS 'Q1REALSUM' FROM Tum WHERE Estimated = 'NO' AND CAST(Depart AS DATE) > '2020-07-01' AND CAST(Depart AS DATE) < '2020-09-30'"
+  var Q1OTHER = "SELECT SUM(Amount) AS 'Other' FROM Tum Where  Estimated = 'NO' AND Category = 'Other' AND CAST(Depart AS DATE) > '2020-07-01' AND CAST(Depart AS DATE) < '2020-09-30'";
+  var Q1FOOD = "SELECT SUM(Amount) AS 'Food' FROM Tum Where  Estimated = 'NO' AND Category = 'Food' AND CAST(Depart AS DATE) > '2020-07-01' AND CAST(Depart AS DATE) < '2020-09-30'";
+  var Q1TRANS = "SELECT SUM(Amount) AS 'Trans' FROM Tum Where  Estimated = 'NO' AND Category = 'Transportation' AND CAST(Depart AS DATE) > '2020-07-01' AND CAST(Depart AS DATE) < '2020-09-30'";
+  var Q1LODGING = "SELECT SUM(Amount) AS 'Lodging' FROM Tum Where  Estimated = 'NO' AND Category = 'Lodging' AND CAST(Depart AS DATE) > '2020-07-01' AND CAST(Depart AS DATE) < '2020-09-30'";
   
-  await db.queryAsync(Q3ESTSUM).then(function(rows){
-     //  Food= rows[0].Food;
-    console.log(rows);
+
+
+
+  await db.queryAsync(Q1ESTSUM).then(function(rows){
+    //  Food= rows[0].Food;
+    //console.log(rows);
+    Gidecek.Q1EstTotal=rows[0].Q1ESTSUM;
+
   });
 
-  await db.queryAsync(Q3REALSUM).then(function(rows){
-     //  Food= rows[0].Food;
-      console.log(rows);
-  });
+  await db.queryAsync(Q1REALSUM).then(function(rows){
+    //  Food= rows[0].Food;
+    //console.log(rows);
+    Gidecek.Q1RealTotal=rows[0].Q1REALSUM;
 
+   });
+
+   await db.queryAsync(Q1FOOD).then(function(rows){
+    //  Food= rows[0].Food;
+    //console.log(rows);
+    Gidecek.Q1Food=rows[0].Food;
+
+   });
+
+   await db.queryAsync(Q1TRANS).then(function(rows){
+    //  Food= rows[0].Food;
+    //console.log(rows);
+    Gidecek.Q1Trans=rows[0].Trans;
+
+   });
+   await db.queryAsync(Q1LODGING).then(function(rows){
+    //  Food= rows[0].Food;
+    //console.log(rows);
+    Gidecek.Q1Lodging=rows[0].Lodging;
+
+   });
+
+   await db.queryAsync(Q1OTHER).then(function(rows){
+    //  Food= rows[0].Food;
+    //console.log(rows);
+    Gidecek.Q1Other=rows[0].Other;
+
+   });
+
+
+
+
+res.send(Gidecek);
+res.end();
  }
 
 
 module.exports.Qua4 =  async (req,res)=>{
 
-  var Q4ESTSUM = "SELECT  Sum(Amount) AS 'Q4ESTSUM' FROM Tum WHERE Estimated = 'YES' AND CAST(Depart AS DATE) > '2020-10-01' AND CAST(Depart AS DATE) < '2020-12-31'"
-  var Q4REALSUM = "SELECT  Sum(Amount) AS 'Q4REALSUM' FROM Tum WHERE Estimated = 'NO' AND CAST(Depart AS DATE) > '2020-10-01' AND CAST(Depart AS DATE) < '2020-12-31'"
-    
-  await db.queryAsync(Q4ESTSUM).then(function(rows){
-     //  Food= rows[0].Food;
-     console.log(rows);
+
+  var Gidecek={
+    Q1RealTotal : "",
+    Q1EstTotal : "",
+    Q1Food:"",
+    Q1Trans: "",
+    Q1Lodging: "",
+    Q1Other: "",
+
+   
+}
+  var Q1ESTSUM = "SELECT  Sum(Amount) AS 'Q1ESTSUM' FROM Tum WHERE Estimated = 'YES' AND CAST(Depart AS DATE) > '2020-10-01' AND CAST(Depart AS DATE) < '2020-12-30'"
+  var Q1REALSUM = "SELECT  Sum(Amount) AS 'Q1REALSUM' FROM Tum WHERE Estimated = 'NO' AND CAST(Depart AS DATE) > '2020-10-01' AND CAST(Depart AS DATE) < '2020-12-30'"
+  var Q1OTHER = "SELECT SUM(Amount) AS 'Other' FROM Tum Where  Estimated = 'NO' AND Category = 'Other' AND CAST(Depart AS DATE) > '2020-10-01' AND CAST(Depart AS DATE) < '2020-12-30'";
+  var Q1FOOD = "SELECT SUM(Amount) AS 'Food' FROM Tum Where  Estimated = 'NO' AND Category = 'Food' AND CAST(Depart AS DATE) > '2020-10-01' AND CAST(Depart AS DATE) < '2020-12-30'";
+  var Q1TRANS = "SELECT SUM(Amount) AS 'Trans' FROM Tum Where  Estimated = 'NO' AND Category = 'Transportation' AND CAST(Depart AS DATE) > '2020-10-01' AND CAST(Depart AS DATE) < '2020-12-30'";
+  var Q1LODGING = "SELECT SUM(Amount) AS 'Lodging' FROM Tum Where  Estimated = 'NO' AND Category = 'Lodging' AND CAST(Depart AS DATE) > '2020-10-01' AND CAST(Depart AS DATE) < '2020-12-30'";
+  
+
+
+
+  await db.queryAsync(Q1ESTSUM).then(function(rows){
+    //  Food= rows[0].Food;
+    //console.log(rows);
+    Gidecek.Q1EstTotal=rows[0].Q1ESTSUM;
 
   });
- 
-  await db.queryAsync(Q4REALSUM).then(function(rows){
-     //  Food= rows[0].Food;
-      console.log(rows);
 
-  });
+  await db.queryAsync(Q1REALSUM).then(function(rows){
+    //  Food= rows[0].Food;
+    //console.log(rows);
+    Gidecek.Q1RealTotal=rows[0].Q1REALSUM;
+
+   });
+
+   await db.queryAsync(Q1FOOD).then(function(rows){
+    //  Food= rows[0].Food;
+    //console.log(rows);
+    Gidecek.Q1Food=rows[0].Food;
+
+   });
+
+   await db.queryAsync(Q1TRANS).then(function(rows){
+    //  Food= rows[0].Food;
+    //console.log(rows);
+    Gidecek.Q1Trans=rows[0].Trans;
+
+   });
+   await db.queryAsync(Q1LODGING).then(function(rows){
+    //  Food= rows[0].Food;
+    //console.log(rows);
+    Gidecek.Q1Lodging=rows[0].Lodging;
+
+   });
+
+   await db.queryAsync(Q1OTHER).then(function(rows){
+    //  Food= rows[0].Food;
+    //console.log(rows);
+    Gidecek.Q1Other=rows[0].Other;
+
+   });
+
+
+
+
+res.send(Gidecek);
+res.end();
 
 }
 
 
+module.exports.QuaList =  async (req,res)=>{
 
+  console.log("Qualistteyim");
+  var QList=[];
+  var desc=[];
+  const pot=['AND Depart > "2020-01-01" AND Depart < "2020-03-31"',
+  'AND Depart > "2020-04-01" AND Depart < "2020-06-31"',
+  'AND Depart > "2020-07-01" AND Depart < "2020-09-31"',
+  'AND Depart > "2020-10-01" AND Depart < "2020-12-31"',
 
-
-
-
-  //  await db.queryAsync(q2).then(function(rows){
-  //   Lodging=rows[0].Lodging;
-  //   //console.log(rows[0].name);
  
-  //   });
+  ]
 
-  //   await db.queryAsync(q3).then(function(rows){
-  //     Trans=rows[0].Trans;
-  //     //console.log(rows[0].name);
+  const dene = async () =>{
    
-  //   });
-
-  //   await db.queryAsync(q4).then(function(rows){
-  //     Other=rows[0].Other;
-  //     //console.log(rows[0].name);
+   var wh = desc[0];
    
-  //   });
+    var baba ='SELECT Descrip, Category, Count(Amount) AS "ADET",Sum(Amount) AS "SUM" From Tum WHERE Descrip= "' + wh +'" AND Estimated = "YES" ' +pot[0];
+    await db.queryAsync(baba).then(function(rows){
+     //  Food= rows[0].Food;
+     //console.log(baba);
+     // rows.map( adam =>{
+     //   desc.push(adam.Name);
+     
+     // });
+     
+    // Gidecek.Q1Lodging=rows[0].Lodging;
+    // console.log(rows);
+    QList.push(rows[0]);
+    console.log(QList);
+   });
+ }
+ 
 
 
 
-//   SumDetail.SumFood=Food;
-//   SumDetail.SumLodging=Lodging;
-//   SumDetail.SumTrans=Trans;
-//   SumDetail.SumOther=Other;
 
-// console.log(SumDetail);
 
-// res.send(SumDetail);
-// res.end();
+  const descList ="SELECT Name FROM Description";
+  await db.queryAsync(descList).then(function(rows){
+    //  Food= rows[0].Food;
+    //console.log(rows[0].);
+  rows.map( adam =>{
+      desc.push(adam.Name);
+    
+    });
+    
+   // Gidecek.Q1Lodging=rows[0].Lodging;
+ 
+   });
 
+   dene();
+   //console.log(desc);
+ 
+  
+
+}
 

@@ -8,8 +8,12 @@ const CountCont = require ('./Controls/CountCont')
 const DataCont = require ('./Controls/DataCont')
 const SumCont = require ('./Controls/SumCont')
 const Basla = require ('./Controls/Basla')
+
 const SumDetail = require ('./Controls/SumDetail')
 const Quarter = require ('./Controls/Quarter')
+
+const Quar = require ('./Controls/Quar')
+
 
 var app= express();
 
@@ -134,7 +138,7 @@ app.get('/Q2',Quarter.Qua2);
 app.get('/Q3',Quarter.Qua3);
 app.get('/Q4',Quarter.Qua4);
 
-
+app.post('/QL/',Quar.Qua1);
 //  app.post('/SUM2/',(req,res)=>{
   
 //   const ulke = req.body.name;
