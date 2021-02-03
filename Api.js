@@ -1,16 +1,21 @@
 const express = require('express');
 const mysql = require('mysql');
 const router = require('./Routers/Route')
+
+
+const Basla = require ('./Controls/Basla')
+
 const DescCont = require ('./Controls/DescCon')
 const KisiCont = require ('./Controls/KisiCont')
 const CatCont = require ('./Controls/CatCont')
 const CountCont = require ('./Controls/CountCont')
+
 const DataCont = require ('./Controls/DataCont')
 const SumCont = require ('./Controls/SumCont')
-const Basla = require ('./Controls/Basla')
+
 
 const SumDetail = require ('./Controls/SumDetail')
-const Quarter = require ('./Controls/Quarter')
+//const Quarter = require ('./Controls/YEDEK/Quarter')
 
 const Quar = require ('./Controls/Quar')
 
@@ -82,12 +87,13 @@ app.listen(port, () => console.log(`Server localhost:${port} üzerinde ayakta`) 
 
 
 ////************************************************************************ */
+// BASLA
+
+app.get('/Basla', Basla.Basla);
 
 
 
 // GET USERS ALL
-
-app.get('/Basla', Basla.Basla);
 
 app.get('/kisiler', KisiCont.Kisiler);
 app.get('/kisiler/:isim',KisiCont.GetOne);
@@ -97,6 +103,7 @@ app.delete('/kisiler/sil/:id',KisiCont.KisilerDEL);
 
 
 // GET DESCRIPTION ALL
+
 //app.get('/Desc', router);
 app.get('/Desc', DescCont.DescALL);
 app.post('/Desc/Add/:name', DescCont.DescADD);
@@ -104,6 +111,7 @@ app.delete('/Desc/sil/:name', DescCont.DescDEL);
 
 
 // GET CATEGORIES ALL
+
 app.get('/Cat', CatCont.CatALL);
 app.post('/Cat/Add/:name', CatCont.CatADD);
 app.delete('/Cat/sil/:name', CatCont.CatDEL);
@@ -133,39 +141,13 @@ app.post('/DetailSum/',SumDetail.SUMDETAIL);
 
 /**********************************QUARTERS */
 
-app.get('/Q1',Quarter.Qua1);
-app.get('/Q2',Quarter.Qua2);
-app.get('/Q3',Quarter.Qua3);
-app.get('/Q4',Quarter.Qua4);
+// app.get('/Q1',Quarter.Qua1);
+// app.get('/Q2',Quarter.Qua2);
+// app.get('/Q3',Quarter.Qua3);
+// app.get('/Q4',Quarter.Qua4);
 
+app.post('/QT/',Quar.QTOTAL);
 app.post('/QL/',Quar.Qua1);
-//  app.post('/SUM2/',(req,res)=>{
-  
-//   const ulke = req.body.name;
-//   //const estimated = req.body.est;
-// //console.log(ulke);
-// const sql= 'SELECT SUM(Amount) FROM ' + ulke +" WHERE Estimated = 'NO'";
-// //const sql= 'SELECT SUM(Amount) FROM ' + ulke +" WHERE Estimated = "+ "'"+estimated+"'";
-
-//  //const sql = "SELECT * FROM " + ulke +" WHERE Estimated = "+ "'"+estimated+"'";
-// console.log(sql);
-//  //const sql ='SELECT * FROM Balkan WHERE Estimated = "YES"' ;
-
-
-//   con.query(sql, (err, result, fields) => {
-
-//        if (!err){
-//          //
- 
-//          res.send(result);
-//        }
-//            else
-//            console.log(err);
-//    })
-
-
-
-   
-//  });
+app.post('/QDETLIST/',Quar.QDETLIST);
 
 

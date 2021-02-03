@@ -12,13 +12,15 @@ const con = mysql.createConnection({
 });
 
 const db  = Promise.promisifyAll(con);
-module.exports.QuaALL = async (donem, cat, Est) =>{
-  var Est =Est;
+
+module.exports.GenelToplam = async (donem) =>{
+
 var period = "";
 // console.log(cat);
 //console.log(donem);
 var sql="";
-var gelen ="";
+var est ="";
+var real ="";
 var donecek= "";
 const Quarter=[' AND Depart > "2020-01-01" AND Depart < "2020-03-31"',
                ' AND Depart > "2020-04-01" AND Depart < "2020-06-31"',
@@ -45,25 +47,44 @@ switch (donem){
     console.log("QuarterSum.Qua1");
  }
         
-sql = "SELECT SUM(Amount) AS 'SUM' FROM Tum Where  Estimated = '"+Est+"' AND Category = '" + cat+ "'" + period; 
+sql = "SELECT SUM(Amount) AS 'SUM' FROM Tum Where  Estimated = 'YES'" + period;
 
 //console.log(sql);
 try {
     await db.queryAsync(sql).then(function(rows){
-         gelen=rows[0].SUM;
+         est=rows[0].SUM;
         // console.log(gelen);
-         if (gelen=== null) gelen=0;
+         if (est=== null) est=0;
         });
 }   catch(err){
     console.log(err);
     }
 
-donecek={cat, gelen};
-//console.log(donecek);
+    sql = "SELECT SUM(Amount) AS 'SUM' FROM Tum Where  Estimated = 'NO'" + period;
+
+    //console.log(sql);
+    try {
+        await db.queryAsync(sql).then(function(rows){
+             real=rows[0].SUM;
+            // console.log(gelen);
+             if (real=== null) real=0;
+            });
+    }   catch(err){
+        cons   
+        console.log(err);
+    }
+donecek={est, real};
+console.log(donecek);
 return donecek;
 
 
 }
+
+
+
+
+
+
 
 
 

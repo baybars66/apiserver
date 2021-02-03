@@ -12,8 +12,10 @@ const con = mysql.createConnection({
 });
 
 const db  = Promise.promisifyAll(con);
-module.exports.QuaALL = async (donem, cat, Est) =>{
-  var Est =Est;
+
+module.exports.Listele = async (donem, Desc, est) =>{
+    console.log("doooonem", donem);
+  var Est =est;
 var period = "";
 // console.log(cat);
 //console.log(donem);
@@ -29,6 +31,7 @@ const Quarter=[' AND Depart > "2020-01-01" AND Depart < "2020-03-31"',
 
 switch (donem){
     case "Q1" : {
+        console.log("doooonem", donem);
     period= Quarter[0]; 
     break;
     }
@@ -44,21 +47,26 @@ switch (donem){
     default:
     console.log("QuarterSum.Qua1");
  }
-        
-sql = "SELECT SUM(Amount) AS 'SUM' FROM Tum Where  Estimated = '"+Est+"' AND Category = '" + cat+ "'" + period; 
 
-//console.log(sql);
+sql ='SELECT Descrip, Category, COUNT(Amount) AS "QUANTY", SUM(Amount) AS "DescSUM" FROM Tum WHERE Estimated= "' + est +'" AND Descrip = "'+Desc +'"'  + period;
+//sql='SELECT Descrip, Category, COUNT(Amount) AS "QUANTY", SUM(Amount) AS "DescSUM" FROM Tum WHERE Estimated= "YES" AND Descrip = "Hotel" AND Depart > "2020-01-01" AND Depart < "2020-03-31"';
+   
+
+console.log(sql);
+
 try {
     await db.queryAsync(sql).then(function(rows){
-         gelen=rows[0].SUM;
-        // console.log(gelen);
-         if (gelen=== null) gelen=0;
+         gelen=rows[0];
+        
+         if (gelen.Descrip=== null) return;////önemli
+
+         console.log(gelen);
         });
 }   catch(err){
     console.log(err);
     }
 
-donecek={cat, gelen};
+donecek=gelen;
 //console.log(donecek);
 return donecek;
 

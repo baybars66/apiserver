@@ -1,12 +1,5 @@
-
-//const express = require('express');
-//const blu = require("bluebird");
 const mysql = require('mysql');
 var Promise = require("bluebird");
-
-// Promise.promisifyAll(require("mysql/lib/Connection").prototype);
-// Promise.promisifyAll(require("mysql/lib/Pool").prototype);
-// var app= express(); 
 
 const con = mysql.createConnection({
     //host: "192.168.1.33",
