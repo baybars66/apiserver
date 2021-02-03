@@ -2,8 +2,8 @@ const path = require('path');
 const express = require ('express');
 const router = express.Router();
 
-var DescCont = require ('../Controls/DescCon')
-var KisiCont = require ('../Controls/KisiCont')
+var DescCont = require ('../Controls/Confg/DescCon')
+var KisiCont = require ('../Controls/Confg/KisiCont')
 
 
 //router.get('/', Controls.PindexCon);

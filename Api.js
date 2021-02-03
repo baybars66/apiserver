@@ -5,16 +5,16 @@ const router = require('./Routers/Route')
 
 const Basla = require ('./Controls/Basla')
 
-const DescCont = require ('./Controls/DescCon')
-const KisiCont = require ('./Controls/KisiCont')
-const CatCont = require ('./Controls/CatCont')
-const CountCont = require ('./Controls/CountCont')
+const DescCont = require ('./Controls/Confg/DescCon')
+const KisiCont = require ('./Controls/Confg/KisiCont')
+const CatCont = require ('./Controls/Confg/CatCont')
+const CountCont = require ('./Controls/Confg/CountCont')
 
-const DataCont = require ('./Controls/DataCont')
-const SumCont = require ('./Controls/SumCont')
+const DataCont = require ('./Controls/Data/DataCont')
+const SumCont = require ('./Controls/Data/SumCont')
 
 
-const SumDetail = require ('./Controls/SumDetail')
+const SumDetail = require ('./Controls/Data/SumDetail')
 //const Quarter = require ('./Controls/YEDEK/Quarter')
 
 const Quar = require ('./Controls/Quar')
