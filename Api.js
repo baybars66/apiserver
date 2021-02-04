@@ -19,6 +19,8 @@ const SumDetail = require ('./Controls/Data/SumDetail')
 
 const Quar = require ('./Controls/Quar')
 
+const General = require ('./Controls/General')
+
 
 var app= express();
 
@@ -151,3 +153,9 @@ app.post('/QL/',Quar.Qua1);
 app.post('/QDETLIST/',Quar.QDETLIST);
 
 
+
+/**************************GENERAL */
+
+
+
+app.get('/General',General.Gen);
