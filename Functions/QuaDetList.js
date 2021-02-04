@@ -48,7 +48,7 @@ switch (donem){
     console.log("QuarterSum.Qua1");
  }
 
-sql ='SELECT Descrip, Category, COUNT(Amount) AS "QUANTY", SUM(Amount) AS "DescSUM" FROM Tum WHERE Estimated= "' + est +'" AND Descrip = "'+Desc +'"'  + period;
+sql ='SELECT Descrip, Category, COUNT(Amount) AS "Quan", SUM(Amount) AS "Sum" FROM Tum WHERE Estimated= "' + est +'" AND Descrip = "'+Desc +'"'  + period;
 //sql='SELECT Descrip, Category, COUNT(Amount) AS "QUANTY", SUM(Amount) AS "DescSUM" FROM Tum WHERE Estimated= "YES" AND Descrip = "Hotel" AND Depart > "2020-01-01" AND Depart < "2020-03-31"';
    
 

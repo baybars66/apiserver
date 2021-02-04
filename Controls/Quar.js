@@ -78,9 +78,11 @@ module.exports.Qua1 =  async (req,res)=>{
 
 
 module.exports.QDETLIST = async (req,res)=>{
-  var donem = req.body.Peri;
-  var est = req.body.EstKon;
-  console.log("body", donem, est);
+
+
+  var donem = req.body.peri;
+  var est = req.body.Est;
+  //console.log("body", req.body);
   var DescList=[];
   var cc = []; 
   var dd="";
