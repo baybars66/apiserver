@@ -74,7 +74,7 @@ try {
         console.log(err);
     }
 donecek={est, real};
-console.log(donecek);
+//console.log(donecek);
 return donecek;
 
 

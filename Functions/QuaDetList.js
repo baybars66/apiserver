@@ -14,7 +14,7 @@ const con = mysql.createConnection({
 const db  = Promise.promisifyAll(con);
 
 module.exports.Listele = async (donem, Desc, est) =>{
-    console.log("doooonem", donem);
+    //console.log("doooonem", donem);
   var Est =est;
 var period = "";
 // console.log(cat);
@@ -52,7 +52,7 @@ sql ='SELECT Descrip, Category, COUNT(Amount) AS "Quan", SUM(Amount) AS "Sum" FR
 //sql='SELECT Descrip, Category, COUNT(Amount) AS "QUANTY", SUM(Amount) AS "DescSUM" FROM Tum WHERE Estimated= "YES" AND Descrip = "Hotel" AND Depart > "2020-01-01" AND Depart < "2020-03-31"';
    
 
-console.log(sql);
+//console.log(sql);
 
 try {
     await db.queryAsync(sql).then(function(rows){
@@ -60,7 +60,7 @@ try {
         
          if (gelen.Descrip=== null) return;////önemli
 
-         console.log(gelen);
+        // console.log(gelen);
         });
 }   catch(err){
     console.log(err);

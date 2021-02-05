@@ -20,7 +20,7 @@ const db  = Promise.promisifyAll(con);
 
 module.exports.QTOTAL =  async (req,res)=>{
   var donem = req.body.peri;
-  console.log(donem);
+ // console.log(donem);
   
   await QuarterTotalSum.GenelToplam(donem).then((resp) =>{
     //dd=resp;
@@ -95,7 +95,7 @@ module.exports.QDETLIST = async (req,res)=>{
     
     });
   });
-  console.log(DescList);
+  //console.log(DescList);
 
   var veli = async(Desc) =>{
     await QuaDetList.Listele(donem,Desc, est).then((resp) =>{
