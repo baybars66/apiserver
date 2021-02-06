@@ -52,6 +52,7 @@ var con = mysql.createConnection({
  user: "bay66",
  password: "super66",
  database: "Mrts2020",
+ connect_timeout:1000,
 
 
 });
@@ -64,6 +65,7 @@ function Connect() {
     user: "bay66",
     password: "super66",
     database: "Mrts2020",
+    connect_timeout:1000,
   });
 
   con.connect(function(err) {

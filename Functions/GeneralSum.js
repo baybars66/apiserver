@@ -10,6 +10,7 @@ const con = mysql.createConnection({
     user: "bay66",
     password: "super66",
     database: "Mrts2020",
+    connect_timeout:1000,
 });
 
 const db  = Promise.promisifyAll(con);
