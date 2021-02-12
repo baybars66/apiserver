@@ -1,26 +1,30 @@
 const mysql = require('mysql');
-const con = mysql.createConnection({
+
+const con= require ('../../Functions/Connection');
+// const con = mysql.createConnection({
  
 
-    //host: "192.168.1.33",
-    //host: "localhost",
-    host: "88.250.131.163",
-    user: "bay66",
-    password: "super66",
-    database: "Mrts2020",
-    connect_timeout:1000,
+//     //host: "192.168.1.33",
+//     //host: "localhost",
+//     host: "88.250.131.163",
+//     user: "bay66",
+//     password: "super66",
+//     database: "Mrts2020",
+//     connect_timeout:1000,
 
    
    
-   });
+//    });
 
 // GET CATEGORIES ALL
  
 module.exports.CatALL = (req,res)=>{
     con.query("SELECT name FROM Category",  (err, result, fields) => {
-    if (!err)
+    if (!err){
       res.send(result);
-    else
+     res.end();
+    }
+      else
       console.log(err);
     })
   }
@@ -33,7 +37,10 @@ module.exports.CatALL = (req,res)=>{
     con.query(cc, (err, result, fields) => {
    
     if (!err)
+    {
       res.send('CATEGORY INSERTED');
+      res.end();
+    } 
     else
       console.log(err);
      })
@@ -45,9 +52,11 @@ module.exports.CatALL = (req,res)=>{
   module.exports.CatDEL = (req,res)=>{
    
     con.query("DELETE FROM Category WHERE name = ?", [req.params.name],(err, result, fields) => {
-    if (!err)
+    if (!err){
       res.send('CATEGORY DELETED');
-    else
+      res.end();
+    }
+      else
       console.log(err);
   })
   }

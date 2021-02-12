@@ -1,23 +1,30 @@
 const mysql = require('mysql');
-const con = mysql.createConnection({
+
+const con= require ('../../Functions/Connection');
+
+// const con = mysql.createConnection({
  
 
-    //host: "192.168.1.33",
-    //host: "localhost",
-    host: "88.250.131.163",
-    user: "bay66",
-    password: "super66",
-    database: "Mrts2020",
-    connect_timeout:1000,
+//     //host: "192.168.1.33",
+//     //host: "localhost",
+//     host: "88.250.131.163",
+//     user: "bay66",
+//     password: "super66",
+//     database: "Mrts2020",
+//     connect_timeout:1000,
    
    
-   });
+//    });
+
+
 module.exports.Kisiler = (req,res)=>{
     console.log("geldi");
    
     con.query("SELECT name FROM users",  (err, result, fields) => {
-    if (!err)
+    if (!err){
         res.send(result);
+        res.end();
+    }
     else
         console.log(err);
       })
@@ -36,6 +43,8 @@ module.exports.GetOne = (req,res)=>{
             //console.log(result);
             //console.log(result[0].id);
            res.send(result);
+           res.end();
+
          }
              else
              console.log(err);
@@ -52,7 +61,10 @@ module.exports.GetOne = (req,res)=>{
     con.query(dd, (err, result, fields) => {
     if (!err){
     console.log('hhh');
-     res.send('USER INSERTED');}
+     res.send('USER INSERTED');
+    
+     res.end();
+    }
     else
      console.log(err);
      })
@@ -63,8 +75,11 @@ module.exports.GetOne = (req,res)=>{
   
   module.exports.KisilerDEL = (req,res)=>{
     con.query("DELETE FROM users WHERE name = ?", [req.params.id], (err, result, fields) => {
-    if (!err)
+    if (!err){
       res.send('USER DELETED');
+      res.end();
+
+    }
     else
       console.log(err);
     })

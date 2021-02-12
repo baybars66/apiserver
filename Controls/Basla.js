@@ -1,23 +1,18 @@
 
-//const express = require('express');
-//const blu = require("bluebird");
 const mysql = require('mysql');
+const con= require ('../Functions/Connection');
 var Promise = require("bluebird");
-// Note that the library's classes are not properties of the main export
-// so we require and promisifyAll them manually
-//Promise.promisifyAll(require("mysql/lib/Connection").prototype);
-//Promise.promisifyAll(require("mysql/lib/Pool").prototype);
-//var app= express(); 
 
-const con = mysql.createConnection({
-    //host: "192.168.1.33",
-    //host: "localhost",
-    host: "88.250.131.163",
-    user: "bay66",
-    password: "super66",
-    database: "Mrts2020",
-    connect_timeout:1000,
-});
+
+// const con = mysql.createConnection({
+//     //host: "192.168.1.33",
+//     //host: "localhost",
+//     host: "88.250.131.163",
+//     user: "bay66",
+//     password: "super66",
+//     database: "Mrts2020",
+//     connect_timeout:1000,
+// });
 
 const db  = Promise.promisifyAll(con);
 

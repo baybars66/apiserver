@@ -1,17 +1,19 @@
 
 const mysql = require('mysql');
-const con = mysql.createConnection({
+
+const con= require ('../../Functions/Connection');
+// const con = mysql.createConnection({
  
 
-    //host: "192.168.1.33",
-    //host: "localhost",
-    host: "88.250.131.163",
-    user: "bay66",
-    password: "super66",
-    database: "Mrts2020",
-    connect_timeout:1000,
+//     //host: "192.168.1.33",
+//     //host: "localhost",
+//     host: "88.250.131.163",
+//     user: "bay66",
+//     password: "super66",
+//     database: "Mrts2020",
+//     connect_timeout:1000,
    
-   });
+//    });
 
 
 //GET DATA
@@ -36,6 +38,7 @@ module.exports.DataALL = (req,res)=>{
            // console.log(result);
             //console.log(result[0].id);
            res.send(result);
+           res.end();
          }
              else
              console.log(err);
@@ -64,8 +67,10 @@ module.exports.DataALL = (req,res)=>{
   
   
     con.query(sql, (err, result, fields) => {
-    if (!err)
+    if (!err) {
      res.send('DATA INSERTED');
+     res.end();
+    }
     else
      console.log(err);
   
@@ -89,8 +94,10 @@ module.exports.DataALL = (req,res)=>{
   
   
     con.query(sql, (err, result, fields) => {
-    if (!err)
+    if (!err){
       res.send('DATA DELETED');
+      res.end();
+    }
     else
       console.log(err);
   })
