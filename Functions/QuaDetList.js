@@ -25,10 +25,10 @@ var period = "";
 var sql="";
 var gelen ="";
 var donecek= "";
-const Quarter=[' AND Depart > "2020-01-01" AND Depart < "2020-03-31"',
-               ' AND Depart > "2020-04-01" AND Depart < "2020-06-31"',
-               ' AND Depart > "2020-07-01" AND Depart < "2020-09-31"', 
-               ' AND Depart > "2020-10-01" AND Depart < "2020-12-31"',
+const Quarter=[' AND Depart > "2021-01-01" AND Depart < "2021-03-31"',
+               ' AND Depart > "2021-04-01" AND Depart < "2021-06-31"',
+               ' AND Depart > "2021-07-01" AND Depart < "2021-09-31"', 
+               ' AND Depart > "2021-10-01" AND Depart < "2021-12-31"',
             ]
     //console.log(donem, cat);
 
